@@ -38,6 +38,7 @@ WSA-ARM64-Patched\
   download.ps1                    fetch + verify all dependencies into .\deps
   build.ps1                       extract, build images, assemble the package
   verify.ps1                      post-install checks (29 checks, PASS/FAIL)
+  cleanup.ps1                     developer helper: checklist (arrows + space) to remove deps\, work\, WSL scratch in any distro, build output; -All, -DryRun
   scripts\build-guest-images.sh   builds the four patched Android images (runs in WSL, called by build.ps1)
   installer\                      TRACKED: our Install.bat/Install.ps1 + Uninstall.bat/Uninstall.ps1 (AGPL-3.0; origin in installer\README.md) + LICENSE
   donor\                          TRACKED: the 32 explicit 64-bit files we need + MANIFEST.tsv + README.md (provenance)
