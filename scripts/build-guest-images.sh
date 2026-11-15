@@ -93,7 +93,7 @@ install_donor() {   # install every file listed in $DONOR/MANIFEST.tsv: image, p
 patch_props() {   # patch_props <img> <path> [extra lines to append]
   local img=$1 path=$2 extra=${3:-} f="$W/prop.$$"
   debugfs -R "dump $path $f.old" "$img" >/dev/null 2>&1; [ -s "$f.old" ] || { echo "cannot read $path" >&2; exit 1; }
-  # 64-bit zygote; ABI lists = arm64 only; DELETE abilist32 (an empty value still matches the init trigger "=*"); codecs back on
+  # 64-bit zygote; ABI lists = arm64 only; abilist32 lines removed from all three build.props (system, vendor, odm); codecs back on
   sed -E 's/^ro\.zygote=zygote64_32/ro.zygote=zygote64/; s/^debug\.stagefright\.ccodec=0/debug.stagefright.ccodec=4/;
          s/^(ro\.[a-z_]+\.product\.cpu\.abilist)=.*/\1=arm64-v8a/; /^ro\.[a-z_]+\.product\.cpu\.abilist32=/d' "$f.old" > "$f.new"
   [ -n "$extra" ] && printf '%s\n' "$extra" >> "$f.new"

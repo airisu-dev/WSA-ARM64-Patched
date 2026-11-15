@@ -41,9 +41,9 @@ The Oryon cores have no AArch32 mode at EL0, so any 32-bit ARM binary fails with
 Older Snapdragons (8cx, SQ1) still run AArch32, which is why the stock arm64 package works there.
 Hyper-V reports the resulting clean guest power-off as event 18508; `WsaClient` then times out waiting for the VM.
 
-Gotcha: the trigger `ro.product.cpu.abilist32=*` also matches a property that is set to an **empty** value.
-The property must be *deleted*, in all three places (system, vendor and the `odm` build.prop inside
-`vendor.vhdx`); missing one keeps the 32-bit ABI alive.
+The 32-bit ABI list is set in three files: the system build.prop, the vendor build.prop and the `odm` build.prop (inside
+`vendor.vhdx`). The trigger fires while any of them lists a 32-bit ABI. With all three empty or removed the guest boots (tested on
+the Surface: 29/29 checks); Google's image ships them empty. The build removes the lines.
 
 ## The changes, and the reason for each
 
@@ -155,7 +155,6 @@ Play Store self-updated.
 | Theory | What was actually true |
 |---|---|
 | A kernel/CPU mismatch on Oryon kills the guest | The 5.15.104 kernel boots cleanly on Snapdragon X. |
-| The 32-bit hypothesis is wrong because emptying `abilist32` changed nothing | The test was flawed: an empty property still matches the trigger, and the `odm` copy was missed. |
 | Hyper-V result `0xC0370103` marks the failure | It also appears for healthy starts. |
 | The Pixel 5 `redfin` image has 64-bit launchers | It is multilib with arm32 launchers; "redfin" is only the spoofed identity in snickler's build. |
 | YouTube Morphe rejects software-only decoders (`canH264Main.0`, `progressive.fmt.noneavailable`) | The failure came from app state cached by a first launch **before** microG was installed. After `pm clear` or a reinstall the same APK plays, and the app then uses `c2.android.avc.decoder`. Install microG first, or clear the app afterwards. |

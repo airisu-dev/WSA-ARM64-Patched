@@ -94,7 +94,7 @@ Not provided by this folder (you need them): Windows 11 ARM64, WSL2 + a Debian a
 
 | # | Change | Why |
 |---|---|---|
-| 1 | `ro.zygote=zygote64`; ABI lists = `arm64-v8a`; every `ro.*.product.cpu.abilist32` line **deleted** in system, vendor and the odm file inside vendor | `boringssl_self_test32` (trigger `abilist32=*`, `reboot_on_failure`) powers the guest off about 4 s after boot. An empty value still matches `=*`, so the lines must go |
+| 1 | `ro.zygote=zygote64`; ABI lists = `arm64-v8a`; every `ro.*.product.cpu.abilist32` line **deleted** in system, vendor and the odm file inside vendor | `boringssl_self_test32` (trigger `abilist32=*`, `reboot_on_failure`) powers the guest off about 4 s after boot. The trigger fires while any of the three files lists a 32-bit ABI, so all three are cleaned |
 | 2 | 64-bit audio HAL, CAS HAL, Codec2 HAL (+ rc, seccomp policy, VINTF manifest, 21 vendor libs), `drmserver`, `mediaserver`, and 3 system libs from Google's image (`donor\MANIFEST.tsv`); OMX HAL removed | These launchers were arm32 and crash-looped, so `audioserver` never stayed up, Android never reached `sys.boot_completed`, and WSA killed the guest every ~126 s ("Starting Windows Subsystem for Android" forever). `libmediaplayerservice`, `libresourcemanagerservice`, `libstagefright_httplive` existed only as 32-bit |
 | 3 | `debug.stagefright.ccodec=4` (was `0`) | With the OMX HAL gone, `0` leaves Android with no codecs at all |
 | 4 | `dalvik.vm.dex2oat64.enabled=true` (system `build.prop`) | `installd` otherwise runs the arm32 `dex2oat32`, which fails on this CPU, so no app is ahead-of-time compiled |
