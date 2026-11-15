@@ -40,7 +40,7 @@ WSA-ARM64-Patched\
   verify.ps1                      post-install checks (29 checks, PASS/FAIL)
   cleanup.ps1                     developer helper: checklist (arrows + space) to remove deps\, work\, WSL scratch in any distro, build output; -All, -DryRun
   scripts\build-guest-images.sh   builds the four patched Android images (runs in WSL, called by build.ps1)
-  installer\                      TRACKED: our Install.bat/Install.ps1 + Uninstall.bat/Uninstall.ps1 (AGPL-3.0; origin in installer\README.md) + LICENSE
+  installer\                      TRACKED: Install/Uninstall .bat + .ps1 (Install.* are AGPL-3.0, Uninstall.* MIT; origin in installer\README.md) + LICENSE (AGPL text)
   donor\                          TRACKED: the 32 explicit 64-bit files we need + MANIFEST.tsv + README.md (provenance)
   extra\                          TRACKED: component-overrides.xml (required: stops the Play Store from becoming a second package verifier)
   docs\                           TRACKED: research notes (findings, tooling notes, package analysis) + tools\ debug scripts; not used by the build
@@ -143,4 +143,6 @@ Run `Uninstall.bat` from the output folder (UAC prompt). It stops WSA and remove
 - The tracked `donor\` binaries are unsigned and of unknown build; they only run inside the Android VM. A cleaner source would be building those services from AOSP
   `android-13.0.0_r*` (tag for `TQ3A.230901.001`) for an arm64-only target.
 - Google apps are proprietary (MindTheGapps repackages them).
-- `installer\Install.bat` / `Install.ps1` are modified copies of AGPL-3.0 files; the license text is `installer\LICENSE` and ships in the output as `LICENSE-installer-AGPL-3.0.txt`.
+- **This repository's own code is MIT** (`LICENSE`): the build, download, verify and cleanup scripts, `scripts\`, `extra\`, `docs\`, `installer\Uninstall.bat` / `Uninstall.ps1`.
+- **`installer\Install.bat` and `Install.ps1` are AGPL-3.0** (derived from an AGPL-3.0 installer, see `installer\README.md`); the license text is `installer\LICENSE` and ships in the output as `LICENSE-installer-AGPL-3.0.txt`.
+- **`donor\` binaries are third-party** and keep their own licenses (see `donor\README.md`); they are not covered by the MIT license.
