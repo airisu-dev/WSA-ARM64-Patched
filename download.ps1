@@ -5,8 +5,8 @@
 .DESCRIPTION
   This is the ONLY step that touches the internet. build.ps1 uses just the files under .\deps.
   Every pinned file is verified against the SHA-256 below; a mismatch aborts.
-  See README.md ("Dependencies and references") for where each file comes from. The installer scripts and the 64-bit donor
-  files are NOT downloaded: they are tracked in this folder (.\installer, .\donor).
+  See README.md ("Dependencies and references") for where each file comes from. The installer scripts and the donor manifest
+  are NOT downloaded: they are tracked in this folder (.\installer, .\donor).
 
 .PARAMETER SkipAdb         Do not download Google's platform-tools (only verify.ps1 needs adb).
 .PARAMETER KeepArchives    Keep the big intermediate archives (NuGet package, winget bundle) after extracting the .appx files.
@@ -52,19 +52,19 @@ function Get-AppxIdentity([string]$Appx) {
   } finally { $z.Dispose() }
 }
 
-Write-Host "`n[1/4] WSA 2407.40000.4.0 bundle (MustardChef/WSAPackages)"
+Write-Host "`n[1/5] WSA 2407.40000.4.0 bundle (MustardChef/WSAPackages)"
 Get-Verified 'WSA msixbundle' `
   'https://github.com/MustardChef/WSAPackages/releases/download/WSA_2407.40000.4.0/MicrosoftCorporationII.WindowsSubsystemForAndroid_2407.40000.4.0_neutral_._8wekyb3d8bbwe.Msixbundle' `
   "$deps\msix\MicrosoftCorporationII.WindowsSubsystemForAndroid_2407.40000.4.0_neutral_._8wekyb3d8bbwe.Msixbundle" `
   'ca1a91cf272ec3ea1f226f0a8d7ac12669ef2148c74961ae04e90167d6792b92'
 
-Write-Host "`n[2/4] Google apps (MindTheGapps 13.0.0 arm64)"
+Write-Host "`n[2/5] Google apps (MindTheGapps 13.0.0 arm64)"
 Get-Verified 'MindTheGapps zip' `
   'https://github.com/MindTheGapps/13.0.0-arm64/releases/download/MindTheGapps-13.0.0-arm64-20231025_200931/MindTheGapps-13.0.0-arm64-20231025_200931.zip' `
   "$deps\gapps\MindTheGapps-13.0.0-arm64-20231025_200931.zip" `
   '3ff2edaa75406eb4214402fca6906d4b413ab50afdb1af033d9e396992338d0b'
 
-Write-Host "`n[3/4] Dependency packages for WSA (arm64): UI.Xaml 2.8, VCLibs 140.00, VCLibs 140.00 UWPDesktop"
+Write-Host "`n[3/5] Dependency packages for WSA (arm64): UI.Xaml 2.8, VCLibs 140.00, VCLibs 140.00 UWPDesktop"
 New-Item -ItemType Directory -Force "$deps\appx" | Out-Null
 $appx = @(
   @{ File='Microsoft.UI.Xaml.2.8_arm64.appx';                  Sha='052ab1507191902467340a3856be4a77c3a6ad51a7a33cae54cc1f5c813e500a'; Min='8.2208.12001.0' },
@@ -98,7 +98,7 @@ foreach ($a in $appx) {
   Write-Host ("  OK           {0}  {1}" -f $a.File, $id.Version)
 }
 
-Write-Host "`n[4/4] adb (Google platform-tools), only used by verify.ps1"
+Write-Host "`n[4/5] adb (Google platform-tools), only used by verify.ps1"
 if ($SkipAdb) { Write-Host "  skipped (-SkipAdb)" }
 elseif (Test-Path "$deps\adb\platform-tools\adb.exe") { Write-Host "  OK (cached)  platform-tools" }
 else {
@@ -112,5 +112,10 @@ else {
   Write-Host ("  OK           {0}" -f ((& "$deps\adb\platform-tools\adb.exe" version) -join ' ' ))
 }
 
+Write-Host "`n[5/5] 64-bit Android binaries: Google's Android 13 arm64 emulator system image (672 MB; the build extracts 31 files from it)"
+Get-Verified 'arm64-v8a-33_r02.zip' `
+  'https://dl.google.com/android/repository/sys-img/android/arm64-v8a-33_r02.zip' `
+  "$deps\donor\arm64-v8a-33_r02.zip" `
+  '55ba9a20d473dd5351c77342016956342c40375f3e073b65a43dc9db13ccc5c6'
 Write-Host "`nAll dependencies are in $deps"
 exit 0
