@@ -20,7 +20,7 @@ locations from the original session hard-coded and must be edited first.
 | File | Superseded by |
 |---|---|
 | `transplant.sh`, `patch64.sh`, `convert.sh`, `gapps-bake.sh` | `scripts\build-guest-images.sh` |
-| `snick-*.sh`, `redfin-extract.sh` *(paths)* | The tracked `donor\` folder and `donor\MANIFEST.tsv` |
+| `snick-*.sh`, `redfin-extract.sh` *(paths)* | `donor\MANIFEST.tsv` (the files now come from Google's image, see `donor\README.md`) |
 
 ## Samples
 

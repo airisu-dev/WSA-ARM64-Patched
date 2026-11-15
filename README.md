@@ -19,7 +19,7 @@ wsaclient /shutdown                 # only if WSA is running
 .\verify.ps1                        # after first boot, Developer mode and ADB approval (see "Install and first boot")
 ```
 
-`download.ps1` is the only step that uses the network. `build.ps1` works from `.\deps`, `.\donor` and `.\installer` alone and never reads any remote file.
+`download.ps1` is the only step that uses the network. `build.ps1` works from `.\deps` and the tracked `.\donor`, `.\extra` and `.\installer` alone and never reads any remote file.
 
 ## Requirements
 
@@ -27,7 +27,7 @@ wsaclient /shutdown                 # only if WSA is running
 - **WSL2 with a Debian (aarch64) distro**: `wsl --install -d Debian`. The build runs `qemu-img`, `debugfs`, `e2fsck`, `resize2fs` there
   (packages `qemu-utils` and `e2fsprogs`, installed automatically). WSA itself does not need WSL at runtime.
 - `curl.exe` (built into Windows 11) and PowerShell 5.1 or later. No other tool is needed on Windows.
-- Disk: about 1.9 GB for `.\deps`, roughly 6 GB while building (`.\work` plus WSL scratch, removed afterwards), about 2 GB for the result.
+- Disk: about 2.6 GB for `.\deps`, roughly 6 GB while building (`.\work` plus WSL scratch, removed afterwards), about 2 GB for the result.
 
 ## Folder layout
 
@@ -41,7 +41,7 @@ WSA-ARM64-Patched\
   cleanup.ps1                     developer helper: checklist (arrows + space) to remove deps\, work\, WSL scratch in any distro, build output; -All, -DryRun
   scripts\build-guest-images.sh   builds the four patched Android images (runs in WSL, called by build.ps1)
   installer\                      TRACKED: Install/Uninstall .bat + .ps1 (Install.* are AGPL-3.0, Uninstall.* MIT; origin in installer\README.md) + LICENSE (AGPL text)
-  donor\                          TRACKED: the 32 explicit 64-bit files we need + MANIFEST.tsv + README.md (provenance)
+  donor\                          TRACKED: MANIFEST.tsv (the 32 files to install: 31 from Google's image + our vintf manifest: mode, SELinux label, SHA-256) + vintf-manifest.xml + README.md
   extra\                          TRACKED: component-overrides.xml (required: stops the Play Store from becoming a second package verifier)
   docs\                           TRACKED: research notes (findings, tooling notes, package analysis) + tools\ debug scripts; not used by the build
   deps\                           created by download.ps1
@@ -49,6 +49,7 @@ WSA-ARM64-Patched\
     gapps\      MindTheGapps-13.0.0-arm64-20231025_200931.zip
     appx\       Microsoft.UI.Xaml.2.8, Microsoft.VCLibs.140.00, Microsoft.VCLibs.140.00.UWPDesktop (arm64)
     adb\        platform-tools (only for verify.ps1)
+    donor\      arm64-v8a-33_r02.zip: Google's Android 13 arm64 emulator image (672 MB), source of the 64-bit files
   work\                           temporary, created and removed by build.ps1
   WSA_2407.40000.4.0_arm64\       the build output (what you install)
 ```
@@ -64,14 +65,14 @@ Each file comes from the URL shown and is checked against the SHA-256. A mismatc
 | **WSA package** | [MustardChef/WSAPackages, release `WSA_2407.40000.4.0`](https://github.com/MustardChef/WSAPackages/releases/tag/WSA_2407.40000.4.0) (a mirror of Microsoft's package) | `MicrosoftCorporationII.WindowsSubsystemForAndroid_2407.40000.4.0_neutral_._8wekyb3d8bbwe.Msixbundle`, 1,471,100,532 B, `ca1a91cf272ec3ea1f226f0a8d7ac12669ef2148c74961ae04e90167d6792b92` (the hash the release notes publish) | Microsoft, proprietary. `build.ps1` also requires Microsoft's own signature on the bundle to verify (it does: signed by Microsoft Corporation, timestamped) |
 | **Google apps** | [MindTheGapps 13.0.0-arm64, release `20231025_200931`](https://github.com/MindTheGapps/13.0.0-arm64/releases/tag/MindTheGapps-13.0.0-arm64-20231025_200931) | `MindTheGapps-13.0.0-arm64-20231025_200931.zip`, 385,146,857 B, `3ff2edaa75406eb4214402fca6906d4b413ab50afdb1af033d9e396992338d0b` | Google proprietary software. Only Play Store, Play Services and Services Framework are used |
 | **UI.Xaml 2.8** (WSA dependency) | NuGet [Microsoft.UI.Xaml 2.8.7](https://www.nuget.org/packages/Microsoft.UI.Xaml/2.8.7), `tools/AppX/arm64/Release/Microsoft.UI.Xaml.2.8.appx` | nupkg `79207b10fe243eb1a8dcdc29beceba2f472f145ed31f147f7ae3f43b0659c9f7`; appx (8.2501.31001.0) `052ab1507191902467340a3856be4a77c3a6ad51a7a33cae54cc1f5c813e500a` | Microsoft. Manifest requires >= 8.2208.12001.0 |
-| **VCLibs 140.00 and UWPDesktop** (WSA dependencies) | [microsoft/winget-cli, release `v1.29.380`](https://github.com/microsoft/winget-cli/releases/tag/v1.29.380), `DesktopAppInstaller_Dependencies.zip` | zip `ba875afe9d190f61218985ac0292a99d1db710bf93e13c68944ca9d89f0d82d1`; `Microsoft.VCLibs.140.00_arm64.appx` (14.0.33519.0) `c73d0f55dda331f9dcbefc99ff5a420b62120773d2917387639382aa478533ee`; `â€¦UWPDesktop_arm64.appx` (14.0.33728.0) `831118f2f5cac8e29284e4ecc23bf4236436ccc2ea4a7c225c4946f8cfd29dd3` | Microsoft. Manifest requires exactly these minimum versions |
+| **VCLibs 140.00 and UWPDesktop** (WSA dependencies) | [microsoft/winget-cli, release `v1.29.380`](https://github.com/microsoft/winget-cli/releases/tag/v1.29.380), `DesktopAppInstaller_Dependencies.zip` | zip `ba875afe9d190f61218985ac0292a99d1db710bf93e13c68944ca9d89f0d82d1`; `Microsoft.VCLibs.140.00_arm64.appx` (14.0.33519.0) `c73d0f55dda331f9dcbefc99ff5a420b62120773d2917387639382aa478533ee`; `…UWPDesktop_arm64.appx` (14.0.33728.0) `831118f2f5cac8e29284e4ecc23bf4236436ccc2ea4a7c225c4946f8cfd29dd3` | Microsoft. Manifest requires exactly these minimum versions |
 | **adb** | [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) (`dl.google.com/android/repository/platform-tools-latest-windows.zip`) | not pinned: Google publishes only "latest" at that URL (37.0.1 when tested) | Used only by `verify.ps1` (x86-64 build, runs under emulation) |
 
 ### Tracked in this repository (not downloaded)
 
 | What | Folder | Origin / reference |
 |---|---|---|
-| **64-bit Android binaries**: 5 executables, 24 libraries, 3 data files (32 files, 7 MB) | `donor\` (`MANIFEST.tsv` lists each file's path, mode, SELinux label, SHA-256) | Extracted, byte-identical, from the images in [snickler/WSA-Patched release `0.0.2`](https://github.com/snickler/WSA-Patched/releases/tag/0.0.2) (`wsa-patched-0.0.2.7z`, SHA-256 `b1582feef760fdd7cd9897de767a37d5d476a91187f1fb7b50e86786e56e265a`). Unsigned third-party build; they run only inside the Android VM. Details: `donor\README.md` |
+| **64-bit Android binaries**: 31 files (5 executables, 23 libraries, 3 data files) extracted at build time from Google's image, plus our own trimmed `donor\vintf-manifest.xml` | [Android SDK system image `system-images;android-33;default;arm64-v8a` r2](https://dl.google.com/android/repository/sys-img/android/arm64-v8a-33_r02.zip) (672,331,372 bytes) | SHA-256 `55ba9a20d473dd5351c77342016956342c40375f3e073b65a43dc9db13ccc5c6` (SHA-1 `69883e92b77f8705af135ee86e1d87589f8f113e` is in Google's `sys-img2-3.xml`). `donor\MANIFEST.tsv` lists each file with its source, mode, SELinux label and SHA-256; the build checks every file against it. AOSP build `TE1A.220922.034` (userdebug, public test keys); the files only run inside the Android VM. Details: `donor\README.md` |
 | **`component-overrides.xml`** (9 component overrides) | `extra\` | Our own copy of the file the LSPosed WSA GApps add-on ships and MindTheGapps lacks. It disables the Play Store's `PackageVerificationReceiver` (plus stock OTA components of the Play Store and Play Services). **Without it WSA boot-loops** (see Troubleshooting). Component names come from the Play Store / Play Services manifests |
 | **Installer** `Install.bat`, `Install.ps1`, `Uninstall.bat`, `Uninstall.ps1`, `LICENSE` | `installer\` | Our installer, derived from [LSPosed/MagiskOnWSALocal @ `10659d90`](https://github.com/LSPosed/MagiskOnWSALocal/tree/10659d90b6133b3a3138fd780f272b6869346c39/installer) (AGPL-3.0, LSPosed Contributors). `installer\README.md` lists our changes and the SHA-256 of each original: the finish step opens WSA Settings, and the titles say "WSA" |
 
@@ -79,12 +80,12 @@ Not provided by this folder (you need them): Windows 11 ARM64, WSL2 + a Debian a
 
 ## What the build does
 
-1. **Extract** the arm64 package from the bundle (`WsaPackage_â€¦_ARM64_Release-Nightly.msix`) into `.\work\payload`. Its four Android images, kernel and
+1. **Extract** the arm64 package from the bundle (`WsaPackage_…_ARM64_Release-Nightly.msix`) into `.\work\payload`. Its four Android images, kernel and
    initrd are Microsoft's originals.
 2. **Unpack** the MindTheGapps zip into `.\work\gapps`.
 3. **Build the four patched images** in WSL (`scripts\build-guest-images.sh`): each `.vhdx` is converted to raw ext4, edited with `debugfs`
-   (every written file gets an explicit SELinux label), grown where needed, and converted back to dynamic VHDX. The 64-bit binaries come from `.\donor`:
-   each file's SHA-256 is checked against `MANIFEST.tsv` and its recorded SELinux label and mode are applied.
+   (every written file gets an explicit SELinux label), grown where needed, and converted back to dynamic VHDX. The 64-bit binaries are extracted from Google's emulator image (`deps\donor`) as listed in `.\donor\MANIFEST.tsv`:
+   each file's SHA-256 is checked against the manifest and its recorded SELinux label and mode are applied.
 4. **Assemble** `.\WSA_2407.40000.4.0_arm64`: Microsoft's payload (without the package signature/block-map files and without `apex\mado_release.apex`,
    the Amazon Appstore; pass `-KeepAmazon` to keep it, untested) + the patched images + the three dependency `.appx` + our `.\installer` scripts + `filelist.txt`.
    Microsoft's `Tools\initrd.img` is used **unchanged** (it contains only `/init`, the WSL init); there is no Magisk and no custom initrd.
@@ -93,8 +94,8 @@ Not provided by this folder (you need them): Windows 11 ARM64, WSL2 + a Debian a
 
 | # | Change | Why |
 |---|---|---|
-| 1 | `ro.zygote=zygote64`; ABI lists = `arm64-v8a`; every `ro.*.product.cpu.abilist32` line **deleted** in system, vendor and the odm file inside vendor | `boringssl_self_test32` (trigger `abilist32=*`, `reboot_on_failure`) powers the guest off about 4 s after boot. An empty value still matches `=*`, so the lines must go |
-| 2 | 64-bit audio HAL, CAS HAL, Codec2 HAL (+ rc, seccomp policy, VINTF manifest, 21 vendor libs), `drmserver`, `mediaserver`, and 3 system libs from `donor\`; OMX HAL removed | These launchers were arm32 and crash-looped, so `audioserver` never stayed up, Android never reached `sys.boot_completed`, and WSA killed the guest every ~126 s ("Starting Windows Subsystem for Android" forever). `libmediaplayerservice`, `libresourcemanagerservice`, `libstagefright_httplive` existed only as 32-bit |
+| 1 | `ro.zygote=zygote64`; ABI lists = `arm64-v8a`; every `ro.*.product.cpu.abilist32` line **deleted** in system, vendor and the odm file inside vendor | `boringssl_self_test32` (trigger `abilist32=*`, `reboot_on_failure`) powers the guest off about 4 s after boot. The trigger fires while any of the three files lists a 32-bit ABI, so all three are cleaned |
+| 2 | 64-bit audio HAL, CAS HAL, Codec2 HAL (+ rc, seccomp policy, VINTF manifest, 21 vendor libs), `drmserver`, `mediaserver`, and 3 system libs from Google's image (`donor\MANIFEST.tsv`); OMX HAL removed | These launchers were arm32 and crash-looped, so `audioserver` never stayed up, Android never reached `sys.boot_completed`, and WSA killed the guest every ~126 s ("Starting Windows Subsystem for Android" forever). `libmediaplayerservice`, `libresourcemanagerservice`, `libstagefright_httplive` existed only as 32-bit |
 | 3 | `debug.stagefright.ccodec=4` (was `0`) | With the OMX HAL gone, `0` leaves Android with no codecs at all |
 | 4 | `dalvik.vm.dex2oat64.enabled=true` (system `build.prop`) | `installd` otherwise runs the arm32 `dex2oat32`, which fails on this CPU, so no app is ahead-of-time compiled |
 | 5 | Play Store, Play Services, Services Framework (+ permission/sysconfig files) into `product` and `system_ext`, **plus `extra\component-overrides.xml`**; `ro.com.google.gmsversion=13_202304` | Google services without Magisk. The overrides file is mandatory: WSA already has a package verifier (Microsoft's), Android allows exactly one, and the Play Store declares another. Skipped on purpose: Google app (245 MB), speech services, TalkBack, all overlays (the WebView overlay would point at a Google WebView that is not installed) |
@@ -124,14 +125,14 @@ Run `Uninstall.bat` from the output folder (UAC prompt). It stops WSA and remove
 ## Troubleshooting
 
 - `build.ps1` stops with "output exists": use `-Force` or delete the folder. It never overwrites silently.
-- `missing â€¦\donor\â€¦` / `SHA-256 mismatch: â€¦` from the image build: a tracked file in `donor\` was changed or deleted; restore it from version control (each file's hash is in `donor\MANIFEST.tsv`).
+- `missing ...` / `SHA-256 mismatch: ...` / `MISSING donor file` from the image build: `deps\donor\arm64-v8a-33_r02.zip` is damaged or a tracked file in `donor\` was changed. Re-run `.\download.ps1` (it re-verifies the zip) and restore `donor\` from version control (each file's hash is in `donor\MANIFEST.tsv`).
 - `WSL distro 'Debian' must be aarch64`: `wsl --install -d Debian`, or pass `-Distro <name>`.
 - Passing a backslash path through `wsl.exe` loses the backslashes; the scripts convert `C:\x` to `/mnt/c/x` themselves.
 - Copying images by hand: copy by explicit file name and compare sizes. A shell loop variable that expands early makes `cp` fail silently.
 - Replace images only while WSA is stopped (`wsaclient /shutdown`).
 - **"Starting Windows Subsystem for Android" never ends, VM restarts about every 2 minutes, `adb` flickers offline.** Android is alive but `system_server` crash-loops every ~5 s.
   Read the guest log (`adb logcat -d -b all`, it works while the guest is up) and look for
-  `FATAL EXCEPTION IN SYSTEM PROCESS` / `There must be exactly one verifier; found [com.android.vendingâ€¦, com.microsoft.windows.userappâ€¦]`.
+  `FATAL EXCEPTION IN SYSTEM PROCESS` / `There must be exactly one verifier; found [com.android.vending…, com.microsoft.windows.userapp…]`.
   Cause: the Play Store was installed without `extra\component-overrides.xml`. (This happened when the Google apps were switched from a package that
   included the file to the MindTheGapps zip, which does not.) Telling it apart from other failures: `system_server` appears with many different PIDs in the log.
 - Guest dies or restarts instead of booting: Hyper-V event log `Microsoft-Windows-Hyper-V-Worker-Admin`: 18500 = VM started,
@@ -140,9 +141,8 @@ Run `Uninstall.bat` from the output folder (UAC prompt). It stops WSA and remove
 ## Trust and licensing
 
 - Microsoft's binaries are proprietary: do not redistribute a modified package.
-- The tracked `donor\` binaries are unsigned and of unknown build; they only run inside the Android VM. A cleaner source would be building those services from AOSP
-  `android-13.0.0_r*` (tag for `TQ3A.230901.001`) for an arm64-only target.
+- The 64-bit binaries come from Google's Android 13 arm64 emulator image: a checksummed download from `dl.google.com`, but a `userdebug` build signed with the public AOSP test keys, so trust rests on the checksum, not on a signature. They only run inside the Android VM, never on Windows. An arm64-only AOSP rebuild of `android-13.0.0_r*` (`TQ3A.230901.001`) would be an alternative source.
 - Google apps are proprietary (MindTheGapps repackages them).
 - **This repository's own code is MIT** (`LICENSE`): the build, download, verify and cleanup scripts, `scripts\`, `extra\`, `docs\`, `installer\Uninstall.bat` / `Uninstall.ps1`.
 - **`installer\Install.bat` and `Install.ps1` are AGPL-3.0** (derived from an AGPL-3.0 installer, see `installer\README.md`); the license text is `installer\LICENSE` and ships in the output as `LICENSE-installer-AGPL-3.0.txt`.
-- **`donor\` binaries are third-party** and keep their own licenses (see `donor\README.md`); they are not covered by the MIT license.
+- **The 64-bit binaries are not in this repository**: they are downloaded from Google (AOSP-derived, mostly Apache-2.0) and keep their own licenses; `donor\` only holds the manifest and our `vintf-manifest.xml`.

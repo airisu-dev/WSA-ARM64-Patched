@@ -6,9 +6,9 @@
   1  extract the arm64 package from the Microsoft bundle                       -> work\payload
   2  unpack the MindTheGapps zip                                                -> work\gapps
   3  build the four patched Android images in WSL Debian (scripts\build-guest-images.sh), using the
-     tracked donor\ files (64-bit binaries + MANIFEST.tsv)                      -> work\images
+     donor\MANIFEST.tsv: the 64-bit files are extracted from Google's emulator image in deps\donor                      -> work\images
   4  assemble the package folder: Microsoft payload + patched images + dependency .appx + our installer\
-Inputs: .\deps (download.ps1), .\donor and .\installer (tracked in this folder). Run download.ps1 first. Afterwards run <output>\Install.bat (admin) to install (Uninstall.bat removes it), then verify.ps1.
+Inputs: .\deps (download.ps1) and the tracked .\donor, .\extra and .\installer (tracked in this folder). Run download.ps1 first. Afterwards run <output>\Install.bat (admin) to install (Uninstall.bat removes it), then verify.ps1.
 
 .PARAMETER Distro       WSL distribution used for the image build (default Debian, must be aarch64).
 .PARAMETER Force        Replace an existing output folder.
@@ -20,6 +20,7 @@ param([string]$Distro = 'Debian', [switch]$Force, [switch]$KeepWork, [switch]$Ke
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $root = $PSScriptRoot; $deps = "$root\deps"; $work = "$root\work"
+$gzip = "$deps\donor\arm64-v8a-33_r02.zip"   # Google's Android 13 arm64 emulator image: source of the 64-bit files
 $env:WSL_UTF8 = 1
 
 function Step($m) { Write-Host "`n== $m" -ForegroundColor Cyan }
@@ -50,7 +51,8 @@ Write-Host "bundle signature: $($sig.Status), $($sig.SignerCertificate.Subject)"
 $gappsZip = Get-ChildItem "$deps\gapps" -Filter MindTheGapps-*.zip | Select-Object -First 1; if (-not $gappsZip) { throw "no MindTheGapps zip in $deps\gapps" }
 foreach ($f in 'Microsoft.UI.Xaml.2.8_arm64.appx','Microsoft.VCLibs.140.00_arm64.appx','Microsoft.VCLibs.140.00.UWPDesktop_arm64.appx') { Need "$deps\appx\$f" }
 # tracked in this folder (not downloaded)
-foreach ($f in 'donor\MANIFEST.tsv','extra\component-overrides.xml','installer\Install.bat','installer\Install.ps1','installer\Uninstall.bat','installer\Uninstall.ps1','installer\LICENSE') { if (-not (Test-Path "$root\$f")) { throw "missing $root\$f (it is part of the repository)" } }
+Need $gzip
+foreach ($f in 'donor\MANIFEST.tsv','donor\vintf-manifest.xml','scripts\lp_extract.py','extra\component-overrides.xml','installer\Install.bat','installer\Install.ps1','installer\Uninstall.bat','installer\Uninstall.ps1','installer\LICENSE') { if (-not (Test-Path "$root\$f")) { throw "missing $root\$f (it is part of the repository)" } }
 & wsl.exe -d $Distro -u root -- uname -m 2>&1 | ForEach-Object { if ($_ -notmatch 'aarch64') { throw "WSL distro '$Distro' must be aarch64 (got: $_). Install with: wsl --install -d Debian" } }
 Write-Host "bundle $($bundle.Name)`nWSL    $Distro (aarch64)"
 
@@ -66,7 +68,7 @@ $id = $man.Package.Identity
 if ($id.ProcessorArchitecture -ne 'arm64') { throw "payload is $($id.ProcessorArchitecture), expected arm64" }
 $out = "$root\WSA_$($id.Version)_arm64"
 Write-Host "package $($id.Name) $($id.Version) $($id.ProcessorArchitecture)  ->  $out"
-if (Test-Path $out) { if ($Force) { Remove-Item $out -Recurse -Force } else { throw "output exists: $out (use -Force or remove it)" } }
+if ((Test-Path $out) -and (Get-ChildItem $out -Force | Measure-Object).Count -gt 0) { if ($Force) { Get-ChildItem $out -Force | Remove-Item -Recurse -Force } else { throw "output exists: $out (use -Force or remove it)" } }
 foreach ($n in 'system','vendor','product','system_ext','userdata','metadata') { Need "$work\payload\$n.vhdx" }
 Need "$work\payload\Tools\kernel"; Need "$work\payload\Tools\initrd.img"
 
@@ -77,13 +79,13 @@ Step "2/4 unpack the Google apps"
 # ---- 3. guest images (WSL) -----------------------------------------------------------------------------------------
 Step "3/4 build the patched Android images in WSL ($Distro). This takes several minutes."
 $sh = ToWsl "$root\scripts\build-guest-images.sh"
-& wsl.exe -d $Distro -u root -- bash $sh (ToWsl "$work\payload") (ToWsl "$root\donor") (ToWsl "$work\gapps") (ToWsl "$root\extra") (ToWsl "$work\images")
+& wsl.exe -d $Distro -u root -- bash $sh (ToWsl "$work\payload") (ToWsl "$root\donor") (ToWsl $gzip) (ToWsl "$work\gapps") (ToWsl "$root\extra") (ToWsl "$work\images")
 if ($LASTEXITCODE -ne 0) { throw "guest image build failed (exit $LASTEXITCODE)" }
 foreach ($n in 'system','vendor','product','system_ext') { Need "$work\images\$n.vhdx" }
 
 # ---- 4. assemble ---------------------------------------------------------------------------------------------------
 Step "4/4 assemble $out"
-New-Item -ItemType Directory $out | Out-Null
+New-Item -ItemType Directory -Force $out | Out-Null
 # Microsoft payload, minus: the 4 images (replaced), and the package signature/block map (a modified loose-registered package cannot keep them)
 robocopy "$work\payload" $out /E /NFL /NDL /NJH /NJS /NP /XD AppxMetadata /XF system.vhdx vendor.vhdx product.vhdx system_ext.vhdx AppxBlockMap.xml AppxSignature.p7x '[Content_Types].xml' | Out-Null
 if ($LASTEXITCODE -ge 8) { throw "robocopy failed ($LASTEXITCODE)" }

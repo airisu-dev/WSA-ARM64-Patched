@@ -6,9 +6,9 @@ document explains *why* each change exists and how it was found. Verified 2026-1
 `MicrosoftCorporationII.WindowsSubsystemForAndroid` 2407.40000.4.0 (arm64, Android 13).
 Upstream report: https://github.com/MustardChef/WSABuilds/issues/325
 
-Contents: [Summary](#summary) Â· [Root cause](#root-cause) Â· [The changes](#the-changes-and-the-reason-for-each) Â·
-[How it was diagnosed](#how-it-was-diagnosed) Â· [Verified behaviour](#verified-behaviour) Â·
-[Known limits](#known-limits-and-open-items) Â· [Disproved theories](#disproved-theories-do-not-repeat-these)
+Contents: [Summary](#summary) · [Root cause](#root-cause) · [The changes](#the-changes-and-the-reason-for-each) ·
+[How it was diagnosed](#how-it-was-diagnosed) · [Verified behaviour](#verified-behaviour) ·
+[Known limits](#known-limits-and-open-items) · [Disproved theories](#disproved-theories-do-not-repeat-these)
 
 ## Summary
 
@@ -41,9 +41,9 @@ The Oryon cores have no AArch32 mode at EL0, so any 32-bit ARM binary fails with
 Older Snapdragons (8cx, SQ1) still run AArch32, which is why the stock arm64 package works there.
 Hyper-V reports the resulting clean guest power-off as event 18508; `WsaClient` then times out waiting for the VM.
 
-Gotcha: the trigger `ro.product.cpu.abilist32=*` also matches a property that is set to an **empty** value.
-The property must be *deleted*, in all three places (system, vendor and the `odm` build.prop inside
-`vendor.vhdx`); missing one keeps the 32-bit ABI alive.
+The 32-bit ABI list is set in three files: the system build.prop, the vendor build.prop and the `odm` build.prop (inside
+`vendor.vhdx`). The trigger fires while any of them lists a 32-bit ABI. With all three empty or removed the guest boots (tested on
+the Surface: 29/29 checks); Google's image ships them empty. The build removes the lines.
 
 ## The changes, and the reason for each
 
@@ -67,8 +67,8 @@ All changes are made to the four guest images; the Windows-side binaries, the ke
 
    `audioserver` is killed each time the audio HAL restarts, so AudioFlinger never stays up and Android never
    reports `boot_completed`; the host watchdog then kills the guest after ~126 s and restarts it.
-   The arm64 builds come from the `snickler/WSA-Patched` 0.0.2 images and are tracked byte-for-byte in `..\donor\`
-   (32 files, SHA-256 in `donor\MANIFEST.tsv`, provenance in `donor\README.md`). Three libraries
+   The arm64 builds are extracted at build time from Google's Android 13 arm64 emulator image
+   (`dl.google.com`, SHA-256 pinned in `download.ps1`); 32 files are listed with their SHA-256 in `..\donor\MANIFEST.tsv` (31 from Google, plus our own `vintf-manifest.xml`; provenance in `donor\README.md`). Three libraries
    (`libmediaplayerservice`, `libresourcemanagerservice`, `libstagefright_httplive`) exist only as 32-bit in
    `/system/lib` in Microsoft's image, so the 64-bit `mediaserver` cannot link without them
    (`CANNOT LINK EXECUTABLE ... library "libmediaplayerservice.so" not found`).
@@ -115,7 +115,8 @@ Condensed, because the order matters when repeating this on a new device:
 5. **Reference build.** `snickler/WSA-Patched` 0.0.2 (reported to boot on arm64, with buggy audio and no video) was
    compared read-only against Microsoft's images. It changed exactly the binaries found crash-looping above, spoofed
    the device identity as a Pixel 5, removed the 32-bit libraries, and left `ccodec=0`, which explains its "no video".
-   That comparison confirmed the diagnosis independently; the build here imports only its 32 arm64 files and keeps
+   That comparison confirmed the diagnosis independently. The build first imported those arm64 files; they turned out to be byte-identical to the ones in
+   Google's official Android 13 arm64 emulator image (31 of 32; the 32nd, the vintf manifest, is ours), so the build now takes them from Google. It keeps
    Microsoft's SELinux policy and build identity.
 
 ## Verified behaviour
@@ -128,7 +129,7 @@ templates in the downloaded bundle are byte-identical to the originals backed up
 `Tools\initrd.img` boots (its `/init` is the same `wsainit` binary), so no custom initrd is needed.
 
 Playback checks: Firefox, NewPipe (ExoPlayer, `c2.android.avc.decoder`) and YouTube Morphe all play video;
-audio tracks are active in AudioFlinger; the guest has internet. Play Services completed a Google check-in and the
+audio works (a 440 Hz test tone was heard on the Windows speakers; AudioFlinger output `AudioOut_D`, Speaker, 48 kHz PCM16; needs `pm grant com.android.music android.permission.READ_MEDIA_AUDIO` and `READ_EXTERNAL_STORAGE` on that test app, otherwise it fails with EACCES, which looks like an audio failure but is not); the guest has internet. Play Services completed a Google check-in and the
 Play Store self-updated.
 
 ## Known limits and open items
@@ -139,8 +140,8 @@ Play Store self-updated.
   will fail, so apps that require it (banking, some streaming) may refuse to run; that would need Magisk-style modules.
 - Play Store runtime permissions are not auto-granted on top of an existing userdata; grant them when prompted.
 - Camera, microphone (AudioRecord denied for apps) and Bluetooth are untested or not working.
-- The 64-bit launchers come from an unsigned third-party release; an arm64-only AOSP build of
-  `android-13.0.0_r*` (`TQ3A.230901.001`) would be a better long-term source. The Pixel 5 (`redfin`) factory image is
+- The 64-bit launchers come from Google's Android 13 emulator image: a checksummed official download, but a `userdebug` build signed with the public AOSP test keys, and a different build (`TE1A.220922.034`) than WSA's (`TQ3A.230901.001`). An arm64-only AOSP
+  build of `android-13.0.0_r*` (`TQ3A.230901.001`) would match Microsoft's image exactly. The Pixel 5 (`redfin`) factory image is
   **not** an alternative: it is multilib and its launchers are arm32 too.
 - The original MagiskOnWSALocal initrd (Magisk + embedded GApps) reset the guest after ~2 s on this CPU. This was
   not investigated further, because Magisk is not needed.
@@ -154,7 +155,6 @@ Play Store self-updated.
 | Theory | What was actually true |
 |---|---|
 | A kernel/CPU mismatch on Oryon kills the guest | The 5.15.104 kernel boots cleanly on Snapdragon X. |
-| The 32-bit hypothesis is wrong because emptying `abilist32` changed nothing | The test was flawed: an empty property still matches the trigger, and the `odm` copy was missed. |
 | Hyper-V result `0xC0370103` marks the failure | It also appears for healthy starts. |
 | The Pixel 5 `redfin` image has 64-bit launchers | It is multilib with arm32 launchers; "redfin" is only the spoofed identity in snickler's build. |
 | YouTube Morphe rejects software-only decoders (`canH264Main.0`, `progressive.fmt.noneavailable`) | The failure came from app state cached by a first launch **before** microG was installed. After `pm clear` or a reinstall the same APK plays, and the app then uses `c2.android.avc.decoder`. Install microG first, or clear the app afterwards. |
