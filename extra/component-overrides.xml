@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Installed to /product/etc/sysconfig/component-overrides.xml by scripts/build-guest-images.sh.
+
+  WHY THIS FILE EXISTS: MindTheGapps does not ship it, but WSA cannot boot without it.
+  Android requires EXACTLY ONE package verifier. WSA's built-in verifier is Microsoft's com.microsoft.windows.userapp; the Play Store
+  declares a second one (PackageVerificationReceiver). With both present, PackageManagerService throws
+  "There must be exactly one verifier" in system_server at startup, system_server restarts every ~5 s, Android never reports
+  boot_completed, and WSA kills the guest after ~126 s ("Starting Windows Subsystem for Android" forever).
+
+  The component names below are taken from the Play Store / Play Services manifests. The same list is shipped by the LSPosed project's
+  GApps add-on for WSA (WSA-Addon, used by MagiskOnWSALocal); this is our own equivalent copy, kept in the repository so the build
+  does not depend on that project.
+-->
+<config>
+    <component-override package="com.android.vending">
+        <!-- Conflicts with WSA's built-in package verifier, disable to prevent boot loops. -->
+        <component class="com.google.android.finsky.verifier.impl.PackageVerificationReceiver" enabled="false" />
+        <!-- Stock OTA components: not applicable to WSA -->
+        <component class="com.google.android.finsky.systemupdate.SystemUpdateSettingsContentProvider" enabled="false" />
+        <component class="com.google.android.finsky.systemupdateactivity.SettingsSecurityEntryPoint" enabled="false" />
+        <component class="com.google.android.finsky.systemupdateactivity.SystemUpdateActivity" enabled="false" />
+    </component-override>
+    <component-override package="com.google.android.gms">
+        <component class="com.google.android.gms.update.phone.PopupDialog" enabled="false" />
+        <component class="com.google.android.gms.update.OtaSuggestionSummaryProvider" enabled="false" />
+        <component class="com.google.android.gms.update.SystemUpdateActivity" enabled="false" />
+        <component class="com.google.android.gms.update.SystemUpdateGcmTaskService" enabled="false" />
+        <component class="com.google.android.gms.update.SystemUpdateService" enabled="false" />
+    </component-override>
+</config>

@@ -1,0 +1,13 @@
+# Everything below is produced by the scripts and can be regenerated; only the scripts and README are source.
+
+# download.ps1: all dependencies (about 2.6 GB), re-created and SHA-256 verified on every run
+/deps/
+
+# build.ps1: temporary extraction/staging area (several GB), removed automatically after a successful build
+/work/
+
+# build.ps1: the build output, WSA_<version>_arm64 (about 2 GB)
+/WSA_*/
+
+# interrupted downloads
+*.part

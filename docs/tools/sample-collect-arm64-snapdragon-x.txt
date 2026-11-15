@@ -1,0 +1,129 @@
+﻿##### 1. identity
+ro.build.fingerprint=Windows/windows_arm64/windows_arm64:13/TQ3A.230901.001/2407.40000.4.0:user/release-keys
+ro.product.model=Subsystem for Android(TM)
+ro.product.manufacturer=Microsoft Corporation
+ro.product.device=windows_arm64
+ro.product.cpu.abilist=arm64-v8a
+ro.product.cpu.abilist32=
+ro.product.cpu.abilist64=arm64-v8a
+ro.zygote=zygote64
+ro.build.version.release=13
+ro.build.version.sdk=33
+
+##### 2. media / codec properties
+[debug.stagefright.ccodec]: [4]
+[init.svc.media.swcodec]: [running]
+
+##### 3. media services / processes
+audioserver    111     1 11082332 12880 0                   0 S android.hardware.audio.service
+media          114     1 10869932  6212 0                   0 S android.hardware.cas@1.2-service
+media          118     1 10916008 13292 0                   0 S android.hardware.media.c2@1.0-service-goldfish
+audioserver    131     1 11417564 26648 0                   0 S audioserver
+drm            177     1 10900656  9760 0                   0 S drmserver
+mediaex        206     1 11318200 26576 0                   0 S media.extractor
+media          207     1 10951464  8052 0                   0 S media.metrics
+media          210     1 11213680 26216 0                   0 S mediaserver
+mediacodec     218     1 11190036 23656 0                   0 S media.swcodec
+u0_a67         713   106 14695840 115008 0                  0 S com.android.providers.media.module
+--- lshal (media-related)
+DM    Y android.hardware.cas@1.0::IMediaCasService/default                   N/A        114    
+DM,FC Y android.hardware.cas@1.1::IMediaCasService/default                   N/A        114    
+DM,FC Y android.hardware.cas@1.2::IMediaCasService/default                   N/A        114    
+DM,FC Y android.hardware.media.c2@1.0::IComponentStore/default               N/A        118    
+FM    Y android.hardware.media.c2@1.0::IComponentStore/software              N/A        218    
+FM    Y android.hardware.media.c2@1.1::IComponentStore/software              N/A        218    
+FM    Y android.hardware.media.c2@1.2::IComponentStore/software              N/A        218    
+
+##### 4. decoder list (name | owner | software-only | hw-accelerated | vendor)
+Media type 'audio/3gpp': | Decoder "c2.android.amrnb.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/amr-wb': | Decoder "c2.android.amrwb.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/flac': | Decoder "c2.android.flac.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/g711-alaw': | Decoder "c2.android.g711.alaw.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/g711-mlaw': | Decoder "c2.android.g711.mlaw.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/mp4a-latm': | Decoder "c2.android.aac.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/mpeg': | Decoder "c2.android.mp3.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/opus': | Decoder "c2.android.opus.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/raw': | Decoder "c2.android.raw.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/vorbis': | Decoder "c2.android.vorbis.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'video/avc': | Decoder "c2.android.avc.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'video/x-vnd.on2.vp8': | Decoder "c2.android.vp8.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'video/x-vnd.on2.vp9': | Decoder "c2.android.vp9.decoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/3gpp': | Encoder "c2.android.amrnb.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/amr-wb': | Encoder "c2.android.amrwb.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/flac': | Encoder "c2.android.flac.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/mp4a-latm': | Encoder "c2.android.aac.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'audio/opus': | Encoder "c2.android.opus.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'video/avc': | Encoder "c2.android.avc.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+Media type 'video/x-vnd.on2.vp8': | Encoder "c2.android.vp8.encoder" | owner "codec2::software" | sw-only 1 | hw 0 | vendor 0
+(full dump saved on device: /data/local/tmp/mp_full.txt)
+
+##### 5. H.264 decoder profile/levels
+Media type 'video/avc':
+  Decoder "c2.android.avc.decoder" supports
+    aliases: [
+      "OMX.google.h264.decoder" ]
+    attributes: 0x4: [
+      encoder: 0,
+      vendor: 0,
+      software-only: 1,
+      hw-accelerated: 0 ]
+    owner: "codec2::software"
+    rank: 512
+    profile/levels: [
+      65536/65536 (ConstrainedBaseline/5.2),
+          1/65536 (Baseline/5.2),
+          2/65536 (Main/5.2),
+      524288/65536 (ConstrainedHigh/5.2),
+          8/65536 (High/5.2) ]
+    colors: [
+      0x7f420888 (YUV420Flexible),
+      0x13 (YUV420Planar),
+      0x15 (YUV420SemiPlanar),
+      0x14 (YUV420PackedPlanar),
+      0x27 (YUV420PackedSemiPlanar),
+      0x7f000789 (Surface) ]
+    details: AMessage(what = 0x00000000) = {
+        string alignment = "2x2"
+        string bitrate-range = "1-40000000"
+        string block-count-range = "1-16384"
+        string block-size = "16x16"
+        string blocks-per-second-range = "1-491520"
+        int32_t feature-adaptive-playback = 0
+        string size-range = "2x2-2048x2048"
+      }
+
+Media type 'video/x-vnd.on2.vp8':
+  Decoder "c2.android.vp8.decoder" supports
+    aliases: [
+      "OMX.google.vp8.decoder" ]
+    attributes: 0x4: [
+      encoder: 0,
+      vendor: 0,
+      software-only: 1,
+      hw-accelerated: 0 ]
+    owner: "codec2::software"
+    rank: 512
+    profile/levels: [
+          1/    1 (Main/V0) ]
+    colors: [
+      0x7f420888 (YUV420Flexible),
+      0x13 (YUV420Planar),
+      0x15 (YUV420SemiPlanar),
+      0x14 (YUV420PackedPlanar),
+      0x27 (YUV420PackedSemiPlanar),
+      0x7f000789 (Surface) ]
+    details: AMessage(what = 0x00000000) = {
+        string alignment = "2x2"
+        string bitrate-range = "1-40000000"
+        string block-count-range = "1-8192"
+        string block-size = "16x16"
+        string blocks-per-second-range = "1-1000000"
+
+##### 6. YouTube-family app: format/capability report from the last playback attempt
+(play a video first, then run this script)
+
+##### 7. installed YouTube-family apps
+package:/data/app/~~ZWRpNg9q0JOG6bCRFlcmCw==/org.schabi.newpipe-LxIvVUfAvg_PODuAPaRIdg==/base.apk=org.schabi.newpipe
+package:/data/app/~~8oKl5xQMhjXAlSHO5rEFHQ==/app.morphe.android.youtube-9Ug_63OdL7qpzejg0KCEIg==/base.apk=app.morphe.android.youtube
+package:/data/app/~~W1uZYUVcjNhOFUg2uk5vrA==/app.revanced.android.gms-0ApZUVmp_rOvjGINgqJzpg==/base.apk=app.revanced.android.gms
+package:/data/app/~~WaalqY3zcamj7pjGCPThkw==/org.mozilla.firefox-JEAQQ5sF79A0SfM3I9hfXg==/base.apk=org.mozilla.firefox

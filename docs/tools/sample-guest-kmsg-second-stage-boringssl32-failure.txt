@@ -1,0 +1,1006 @@
+WSALOG v1
+cmdline: initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=10 bonding.max_bonds=0 dummy.numdummies=0 fb_tunnels=none console=hvc0 debug pty.legacy_count=0 androidboot.hardware=windows_arm64 androidboot.veritymode=enforcing androidboot.verifiedbootstate=green log
+Booting Linux on physical CPU 0x0000000000 [0x511f0011]
+Linux version 5.15.104-windows-subsystem-for-android-20230927+ (root@faa0f397bcdf) (clang version 12.0.1, LLD 12.0.1) #1 SMP PREEMPT Wed Sep 27 23:07:46 UTC 2023
+efi: EFI v2.70 by EDK II
+efi: ACPI 2.0=0xdff5f018 SMBIOS=0xde770000 SMBIOS 3.0=0xde750000 MEMATTR=0xdf458498 RNG=0xdff5fa98 MEMRESERVE=0xde73ff98 
+ACPI: Early table checksum verification disabled
+ACPI: RSDP 0x00000000DFF5F018 000024 (v02 VRTUAL)
+ACPI: XSDT 0x00000000DFF5FF18 00005C (v01 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: FACP 0x00000000DFF5FC18 000114 (v06 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: DSDT 0x00000000DFF41018 01DF7E (v02 MSFTVM DSDT01   00000001 INTL 20230628)
+ACPI: DBG2 0x00000000DFF5FB18 000072 (v00 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: GTDT 0x00000000DFF5FD98 000060 (v02 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: OEM0 0x00000000DFF5F098 000064 (v01 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: APIC 0x00000000DFF5F198 00037C (v04 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: SRAT 0x00000000DFF40018 0002C4 (v03 VRTUAL MICROSFT 00000001 MSFT 00000001)
+ACPI: PPTT 0x00000000DFF40418 000428 (v01 VRTUAL MICROSFT 00000000 MSFT 00000000)
+Hyper-V: privilege flags low 0x2e7f, high 0x3b8030, hints 0x80000e, misc 0x31e1
+Hyper-V: Host Build 10.0.26100.9974-9-0
+Zone ranges:
+  DMA      [mem 0x0000000000000000-0x00000000ffffffff]
+  Normal   [mem 0x0000000100000000-0x000000019fffffff]
+  Device   empty
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000000000000-0x00000000007fffff]
+  node   0: [mem 0x0000000000824000-0x00000000de73ffff]
+  node   0: [mem 0x00000000de740000-0x00000000dea7ffff]
+  node   0: [mem 0x00000000dea80000-0x00000000dfe7ffff]
+  node   0: [mem 0x00000000dfe80000-0x00000000dfefffff]
+  node   0: [mem 0x00000000dff00000-0x00000000dfffffff]
+  node   0: [mem 0x0000000100000000-0x000000019fffffff]
+Initmem setup node 0 [mem 0x0000000000000000-0x000000019fffffff]
+On node 0, zone DMA: 36 pages in unavailable ranges
+psci: probing for conduit method from ACPI.
+psci: PSCIv1.1 detected in firmware.
+psci: Using standard PSCI v0.2 function IDs
+psci: MIGRATE_INFO_TYPE not supported.
+psci: SMC Calling Convention v1.4
+percpu: Embedded 28 pages/cpu s76760 r8192 d29736 u114688
+pcpu-alloc: s76760 r8192 d29736 u114688 alloc=28*4096
+pcpu-alloc: [0] 00 [0] 01 [0] 02 [0] 03 [0] 04 [0] 05 [0] 06 [0] 07 
+pcpu-alloc: [0] 08 [0] 09 
+Detected PIPT I-cache on CPU0
+CPU features: detected: Address authentication (architected algorithm)
+CPU features: detected: GIC system register CPU interface
+CPU features: detected: Spectre-v4
+CPU features: kernel page table isolation disabled by kernel configuration
+alternatives: patching kernel code
+Built 1 zonelists, mobility grouping on.  Total pages: 1548252
+Kernel command line: initrd=\x5cinitrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=10 bonding.max_bonds=0 dummy.numdummies=0 fb_tunnels=none console=hvc0 debug pty.legacy_count=0 androidboot.hardware=windows_arm64 androidboot.veritymode=enforcing androidboot.verifiedbootstate=green loglevel=7 transparent_hugepage=never swiotlb=noforce  androidboot.lcd_density=320 androidboot.fstab_suffix=2.windows scsi_mod.scan=async
+Unknown kernel command line parameters "WSL_ROOT_INIT=1", will be passed to user space.
+Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+Memory: 3794288K/6291312K available (16704K kernel code, 2400K rwdata, 9564K rodata, 4608K init, 1237K bss, 167400K reserved, 0K cma-reserved)
+SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=10, Nodes=1
+ftrace: allocating 48083 entries in 188 pages
+ftrace: allocated 188 pages with 5 groups
+trace event string verifier disabled
+rcu: Preemptible hierarchical RCU implementation.
+rcu: \x09RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=10.
+\x09Trampoline variant of Tasks RCU enabled.
+\x09Rude variant of Tasks RCU enabled.
+\x09Tracing variant of Tasks RCU enabled.
+rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=10
+NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+GICv3: 960 SPIs implemented
+GICv3: 0 Extended SPIs implemented
+GICv3: Distributor has Range Selector support
+Root IRQ handler: gic_handle_irq
+GICv3: 16 PPIs implemented
+GICv3: CPU0: found redistributor 0 region 0:0x00000000effee000
+ITS: No ITS available, not enabling LPIs
+kfence: initialized - using 2097152 bytes for 255 objects at 0x(____ptrval____)-0x(____ptrval____)
+arch_timer: cp15 timer(s) running at 19.20MHz (virt).
+clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+sched_clock: 56 bits at 19MHz, resolution 52ns, wraps every 4398046511078ns
+clocksource: hyperv_clocksource_tsc_page: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+sched_clock: 64 bits at 1000MHz, resolution 1ns, wraps every 4398046511103ns
+Console: colour dummy device 80x25
+ACPI: Core revision 20210730
+Calibrating delay loop (skipped), value calculated using timer frequency.. 38.40 BogoMIPS (lpj=76800)
+pid_max: default: 32768 minimum: 301
+LSM: Security Framework initializing
+SELinux:  Initializing.
+Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+rcu: Hierarchical SRCU implementation.
+Remapping and enabling EFI services.
+smp: Bringing up secondary CPUs ...
+Detected PIPT I-cache on CPU1
+GICv3: CPU1: found redistributor 1 region 1:0x00000000f000e000
+CPU1: Booted secondary processor 0x0000000001 [0x511f0011]
+Detected PIPT I-cache on CPU2
+GICv3: CPU2: found redistributor 2 region 2:0x00000000f002e000
+CPU2: Booted secondary processor 0x0000000002 [0x511f0011]
+Detected PIPT I-cache on CPU3
+GICv3: CPU3: found redistributor 3 region 3:0x00000000f004e000
+CPU3: Booted secondary processor 0x0000000003 [0x511f0011]
+Detected PIPT I-cache on CPU4
+GICv3: CPU4: found redistributor 4 region 4:0x00000000f006e000
+CPU4: Booted secondary processor 0x0000000004 [0x511f0011]
+Detected PIPT I-cache on CPU5
+GICv3: CPU5: found redistributor 5 region 5:0x00000000f008e000
+CPU5: Booted secondary processor 0x0000000005 [0x511f0011]
+Detected PIPT I-cache on CPU6
+GICv3: CPU6: found redistributor 6 region 6:0x00000000f00ae000
+CPU6: Booted secondary processor 0x0000000006 [0x512f0011]
+Detected PIPT I-cache on CPU7
+GICv3: CPU7: found redistributor 7 region 7:0x00000000f00ce000
+CPU7: Booted secondary processor 0x0000000007 [0x511f0011]
+Detected PIPT I-cache on CPU8
+GICv3: CPU8: found redistributor 8 region 8:0x00000000f00ee000
+CPU8: Booted secondary processor 0x0000000008 [0x511f0011]
+Detected PIPT I-cache on CPU9
+GICv3: CPU9: found redistributor 9 region 9:0x00000000f010e000
+CPU9: Booted secondary processor 0x0000000009 [0x511f0011]
+smp: Brought up 1 node, 10 CPUs
+SMP: Total of 10 processors activated.
+CPU features: detected: Instruction cache invalidation not required for I/D coherence
+CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+CPU features: detected: CRC32 instructions
+CPU features: detected: Data cache clean to Point of Deep Persistence
+CPU features: detected: Data cache clean to Point of Persistence
+CPU features: detected: Generic authentication (architected algorithm)
+CPU features: detected: RCpc load-acquire (LDAPR)
+CPU features: detected: LSE atomic instructions
+CPU features: detected: Privileged Access Never
+CPU features: detected: Random Number Generator
+CPU features: detected: Speculation barrier (SB)
+CPU features: detected: TLB range maintenance instructions
+CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+CPU: All CPU(s) started at EL1
+node 0 deferred pages initialised in 20ms
+pgdatinit0 (64) used greatest stack depth: 14464 bytes left
+devtmpfs: initialized
+Registered cp15_barrier emulation handler
+setend instruction emulation is not supported on this system
+KASLR enabled
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+futex hash table entries: 4096 (order: 6, 262144 bytes, linear)
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+audit: initializing netlink subsys (disabled)
+audit: type=2000 audit(0.140:1): state=initialized audit_enabled=0 res=1
+thermal_sys: Registered thermal governor 'step_wise'
+thermal_sys: Registered thermal governor 'user_space'
+cpuidle: using governor menu
+hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+ASID allocator initialised with 65536 entries
+ACPI: bus type PCI registered
+Serial: AMBA PL011 UART driver
+HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
+HugeTLB registered 32.0 MiB page size, pre-allocated 0 pages
+HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+HugeTLB registered 64.0 KiB page size, pre-allocated 0 pages
+cryptd: max_cpu_qlen set to 1000
+ACPI: Added _OSI(Module Device)
+ACPI: Added _OSI(Processor Device)
+ACPI: Added _OSI(3.0 _SCP Extensions)
+ACPI: Added _OSI(Processor Aggregator Device)
+ACPI: Added _OSI(Linux-Dell-Video)
+ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
+ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
+ACPI: 1 ACPI AML tables successfully acquired and loaded
+ACPI: Interpreter enabled
+ACPI: Using GIC for interrupt routing
+iommu: Default domain type: Translated 
+iommu: DMA domain TLB invalidation policy: strict mode 
+SCSI subsystem initialized
+ACPI: bus type USB registered
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+videodev: Linux video capture interface: v2.00
+Registered efivars operations
+hv_vmbus: Vmbus version:5.3
+hv_vmbus: Unknown GUID: c376c1c3-d276-48d2-90a9-c04748072c60
+Advanced Linux Sound Architecture Driver Initialized.
+clocksource: Switched to clocksource hyperv_clocksource_tsc_page
+VFS: Disk quotas dquot_6.6.0
+VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+FS-Cache: Loaded
+pnp: PnP ACPI init
+pnp: PnP ACPI: found 0 devices
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+TCP bind hash table entries: 65536 (order: 8, 1048576 bytes, linear)
+TCP: Hash tables configured (established 65536 bind 65536)
+UDP hash table entries: 4096 (order: 5, 131072 bytes, linear)
+UDP-Lite hash table entries: 4096 (order: 5, 131072 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+NET: Registered PF_XDP protocol family
+PCI: CLS 0 bytes, default 64
+Trying to unpack rootfs image as initramfs...
+hw perfevents: enabled with armv8_pmuv3_0 PMU driver, 7 counters available
+Freeing initrd memory: 2668K
+hw perfevents: enabled with armv8_pmuv3_1 PMU driver, 7 counters available
+Initialise system trusted keyrings
+workingset: timestamp_bits=46 max_order=21 bucket_order=0
+squashfs: version 4.0 (2009/01/31) Phillip Lougher
+fuse: init (API version 7.36)
+SGI XFS with ACLs, security attributes, realtime, scrub, repair, quota, no debug enabled
+9p: Installing v9fs 9p2000 file system support
+FS-Cache: Netfs '9p' registered for caching
+FS-Cache: Netfs 'ceph' registered for caching
+ceph: loaded (mds proto 32)
+NET: Registered PF_ALG protocol family
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+hv_vmbus: registering driver hv_pci
+hv_pci c4b741f5-5582-4c98-8f8b-2e082933c396: PCI VMBus probing: Using version 0x10004
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:c4b741f5-5582-4c98-8f8b-2e082933c396
+hv_pci c4b741f5-5582-4c98-8f8b-2e082933c396: PCI host bridge to bus 5582:00
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:c4b741f5-5582-4c98-8f8b-2e082933c396
+pci_bus 5582:00: root bus resource [mem 0x97fe00000-0x97fe02fff window]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:5582:00
+pci_bus 5582:00: No busn resource found for root bus, will use [bus 00-ff]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:5582:00
+pci 5582:00:00.0: [1af4:1043] type 00 class 0x010000
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+pci 5582:00:00.0: reg 0x10: [mem 0x97fe00000-0x97fe00fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+pci 5582:00:00.0: reg 0x18: [mem 0x97fe01000-0x97fe01fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+pci 5582:00:00.0: reg 0x20: [mem 0x97fe02000-0x97fe02fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+pci_bus 5582:00: busn_res: [bus 00-ff] end is updated to 00
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:5582:00
+pci 5582:00:00.0: BAR 0: assigned [mem 0x97fe00000-0x97fe00fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+pci 5582:00:00.0: BAR 2: assigned [mem 0x97fe01000-0x97fe01fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+pci 5582:00:00.0: BAR 4: assigned [mem 0x97fe02000-0x97fe02fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:5582:00:00.0
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+brd: module loaded
+loop: module loaded
+zram: Added device: zram0
+hv_vmbus: registering driver hv_storvsc
+printk: console [hvc0] enabled
+tun: Universal TUN/TAP device driver, 1.6
+PPP generic driver version 2.4.2
+PPP BSD Compression module registered
+PPP Deflate Compression module registered
+PPP MPPE Compression module registered
+NET: Registered PF_PPPOX protocol family
+PPTP driver version 0.8.5
+hv_vmbus: registering driver hv_netvsc
+scsi host0: storvsc_host_t
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:host0
+VFIO - User Level meta-driver version: 0.3
+usbcore: registered new interface driver xpad
+device-mapper: uevent: version 1.0.3
+device-mapper: ioctl: 4.45.0-ioctl (2021-03-22) initialised: dm-devel@redhat.com
+pstore: Registered efi as persistent store backend
+SMCCC: SOC_ID: ARCH_SOC_ID not implemented, skipping ....
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+ashmem: initialized
+hv_vmbus: registering driver hv_balloon
+drop_monitor: Initializing network drop monitor service
+hv_balloon: Using Dynamic Memory protocol version 2.0
+Mirror/redirect action on
+hv_balloon: Memory hot add disabled on ARM64
+u32 classifier
+    input device check on
+    Actions configured
+Free page reporting enabled
+hv_balloon: Cold memory discard hint enabled with order 9
+xt_time: kernel timezone is -0000
+IPVS: Registered protocols (TCP, UDP)
+IPVS: Connection hash table configured (size=4096, memory=32Kbytes)
+IPVS: ipvs loaded.
+IPVS: [rr] scheduler registered.
+IPVS: [wrr] scheduler registered.
+IPVS: [sh] scheduler registered.
+ipip: IPv4 and MPLS over IPv4 tunneling driver
+gre: GRE over IPv4 demultiplexor driver
+ip_gre: GRE over IPv4 tunneling driver
+IPv4 over IPsec tunneling driver
+ipt_CLUSTERIP: ClusterIP Version 0.8 loaded successfully
+Initializing XFRM netlink socket
+IPsec XFRM device driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+mip6: Mobile IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+ip6_gre: GRE over IPv6 tunneling driver
+NET: Registered PF_PACKET protocol family
+NET: Registered PF_KEY protocol family
+Bridge firewalling registered
+l2tp_core: L2TP core driver, V2.0
+l2tp_ppp: PPPoL2TP kernel driver, V2.0
+8021q: 802.1Q VLAN Support v1.8
+sctp: Hash tables configured (bind 256/256)
+tipc: Activated (version 2.0.0)
+NET: Registered PF_TIPC protocol family
+tipc: Started in single node mode
+9pnet: Installing 9P2000 support
+Key type dns_resolver registered
+Key type ceph registered
+libceph: loaded (mon/osd proto 15/24)
+NET: Registered PF_VSOCK protocol family
+hv_vmbus: registering driver hv_sock
+registered taskstats version 1
+Loading compiled-in X.509 certificates
+Key type .fscrypt registered
+Key type fscrypt-provisioning registered
+pstore: Using crash dump compression: deflate
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+ SUBSYSTEM=platform
+ DEVICE=+platform:regulatory.0
+cfg80211: failed to load regulatory.db
+ALSA device list:
+  No soundcards found.
+Freeing unused kernel memory: 4608K
+Run /init as init process
+  with arguments:
+    /init
+  with environment:
+    HOME=/
+    TERM=linux
+    WSL_ROOT_INIT=1
+IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+random: crng init done
+hv_pci a62d2013-768d-493d-adc6-4bf150e41bfc: PCI VMBus probing: Using version 0x10004
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:a62d2013-768d-493d-adc6-4bf150e41bfc
+hv_pci a62d2013-768d-493d-adc6-4bf150e41bfc: PCI host bridge to bus 768d:00
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:a62d2013-768d-493d-adc6-4bf150e41bfc
+pci_bus 768d:00: root bus resource [mem 0x980000000-0xa00001fff window]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:768d:00
+pci_bus 768d:00: No busn resource found for root bus, will use [bus 00-ff]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:768d:00
+scsi 0:0:0:0: Direct-Access     Msft     Virtual Disk     1.0  PQ: 0 ANSI: 5
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+pci 768d:00:00.0: [1af4:105a] type 00 class 0x088000
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+scsi 0:0:0:1: Direct-Access     Msft     Virtual Disk     1.0  PQ: 0 ANSI: 5
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+pci 768d:00:00.0: reg 0x10: [mem 0xa00000000-0xa00000fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+pci 768d:00:00.0: reg 0x18: [mem 0xa00001000-0xa00001fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+pci 768d:00:00.0: reg 0x20: [mem 0x980000000-0x9ffffffff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+scsi 0:0:0:0: Attached scsi generic sg0 type 0
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+scsi 0:0:0:1: Attached scsi generic sg1 type 0
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+scsi 0:0:0:2: Direct-Access     Msft     Virtual Disk     1.0  PQ: 0 ANSI: 5
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+sd 0:0:0:0: [sda] 1849552 512-byte logical blocks: (947 MB/903 MiB)
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+sd 0:0:0:0: [sda] Write Protect is on
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+sd 0:0:0:1: [sdb] 123744 512-byte logical blocks: (63.4 MB/60.4 MiB)
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+sd 0:0:0:0: [sda] Mode Sense: 0f 00 80 00
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+scsi 0:0:0:3: Direct-Access     Msft     Virtual Disk     1.0  PQ: 0 ANSI: 5
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+sd 0:0:0:1: [sdb] Write Protect is on
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+scsi 0:0:0:4: Direct-Access     Msft     Virtual Disk     1.0  PQ: 0 ANSI: 5
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+sd 0:0:0:0: [sda] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+sd 0:0:0:1: [sdb] Mode Sense: 0f 00 80 00
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+sd 0:0:0:1: [sdb] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+sd 0:0:0:0: [sda] Attached SCSI disk
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:0
+sd 0:0:0:1: [sdb] Attached SCSI disk
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:1
+pci_bus 768d:00: busn_res: [bus 00-ff] end is updated to 00
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:768d:00
+pci 768d:00:00.0: BAR 4: assigned [mem 0x980000000-0x9ffffffff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+sd 0:0:0:2: Attached scsi generic sg2 type 0
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+sd 0:0:0:3: Attached scsi generic sg3 type 0
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+scsi 0:0:0:4: Attached scsi generic sg4 type 0
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+pci 768d:00:00.0: BAR 0: assigned [mem 0xa00000000-0xa00000fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+sd 0:0:0:4: [sde] 268435456 512-byte logical blocks: (137 GB/128 GiB)
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+sd 0:0:0:4: [sde] Write Protect is off
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+sd 0:0:0:4: [sde] Mode Sense: 0f 00 00 00
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+scsi 0:0:0:5: Direct-Access     Msft     Virtual Disk     1.0  PQ: 0 ANSI: 5
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+sd 0:0:0:4: [sde] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+sd 0:0:0:2: [sdc] 337672 512-byte logical blocks: (173 MB/165 MiB)
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+pci 768d:00:00.0: BAR 2: assigned [mem 0xa00001000-0xa00001fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:768d:00:00.0
+sd 0:0:0:2: [sdc] Write Protect is on
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+sd 0:0:0:4: [sde] Attached SCSI disk
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:4
+sd 0:0:0:2: [sdc] Mode Sense: 0f 00 80 00
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+sd 0:0:0:3: [sdd] 515728 512-byte logical blocks: (264 MB/252 MiB)
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+sd 0:0:0:3: [sdd] Write Protect is on
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+sd 0:0:0:2: [sdc] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+sd 0:0:0:3: [sdd] Mode Sense: 0f 00 80 00
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+sd 0:0:0:3: [sdd] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+sd 0:0:0:2: [sdc] Attached SCSI disk
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:2
+sd 0:0:0:3: [sdd] Attached SCSI disk
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:3
+scsi host0: scsi_prep_async_scan called twice
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:host0
+sd 0:0:0:5: Attached scsi generic sg5 type 0
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+sd 0:0:0:5: [sdf] 268435456 512-byte logical blocks: (137 GB/128 GiB)
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+sd 0:0:0:5: [sdf] Write Protect is off
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+sd 0:0:0:5: [sdf] Mode Sense: 0f 00 00 00
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+sd 0:0:0:5: [sdf] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+sd 0:0:0:5: [sdf] Attached SCSI disk
+ SUBSYSTEM=scsi
+ DEVICE=+scsi:0:0:0:5
+[wsalog] disk sdf size=137438953472 dev=8:80
+[wsalog] logging to sdf
+[wsalog] disk sdd size=264052736 dev=8:48
+[wsalog] disk sdb size=63356928 dev=8:16
+[wsalog] disk sde size=137438953472 dev=8:64
+[wsalog] logging to sde
+[wsalog] disk sdc size=172888064 dev=8:32
+[wsalog] disk sda size=946970624 dev=8:0
+virtiofs virtio1: Cache len: 0x80000000 @ 0x980000000
+ SUBSYSTEM=virtio
+ DEVICE=+virtio:virtio1
+memmap_init_zone_device initialised 524288 pages in 20ms
+hv_pci c441ecd2-3a99-457f-a80f-a7aecb45fdb7: PCI VMBus probing: Using version 0x10004
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:c441ecd2-3a99-457f-a80f-a7aecb45fdb7
+hv_pci c441ecd2-3a99-457f-a80f-a7aecb45fdb7: PCI host bridge to bus 3a99:00
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:c441ecd2-3a99-457f-a80f-a7aecb45fdb7
+pci_bus 3a99:00: root bus resource [mem 0xc00000000-0xe00001fff window]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:3a99:00
+pci_bus 3a99:00: No busn resource found for root bus, will use [bus 00-ff]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:3a99:00
+pci 3a99:00:00.0: [1af4:1050] type 00 class 0x088000
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+pci 3a99:00:00.0: reg 0x10: [mem 0xe00000000-0xe00000fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+pci 3a99:00:00.0: reg 0x18: [mem 0xe00001000-0xe00001fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+pci 3a99:00:00.0: reg 0x20: [mem 0xc00000000-0xdffffffff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+pci_bus 3a99:00: busn_res: [bus 00-ff] end is updated to 00
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:3a99:00
+pci 3a99:00:00.0: BAR 4: assigned [mem 0xc00000000-0xdffffffff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+pci 3a99:00:00.0: BAR 0: assigned [mem 0xe00000000-0xe00000fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+pci 3a99:00:00.0: BAR 2: assigned [mem 0xe00001000-0xe00001fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:3a99:00:00.0
+[drm] pci: virtio-gpu-pci detected at 3a99:00:00.0
+[drm] Host memory window: 0xc00000000 +0x200000000
+[drm] features: +virgl -edid +resource_blob +host_visible
+[drm] features: -context_init
+[drm] number of scanouts: 1
+[drm] number of cap sets: 1
+[drm] cap set 0: id 3, max-version 0, max-size 84
+[drm] Initialized virtio_gpu 0.1.0 0 for virtio2 on minor 0
+hv_pci fbecd700-c1e1-490e-8c7d-52e0eb067a00: PCI VMBus probing: Using version 0x10004
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:fbecd700-c1e1-490e-8c7d-52e0eb067a00
+hv_pci fbecd700-c1e1-490e-8c7d-52e0eb067a00: PCI host bridge to bus c1e1:00
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:fbecd700-c1e1-490e-8c7d-52e0eb067a00
+pci_bus c1e1:00: root bus resource [mem 0x97fe04000-0x97fe05fff window]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:c1e1:00
+pci_bus c1e1:00: No busn resource found for root bus, will use [bus 00-ff]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:c1e1:00
+pci c1e1:00:00.0: [1af4:105a] type 00 class 0x088000
+ SUBSYSTEM=pci
+ DEVICE=+pci:c1e1:00:00.0
+pci c1e1:00:00.0: reg 0x10: [mem 0x97fe04000-0x97fe04fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:c1e1:00:00.0
+pci c1e1:00:00.0: reg 0x18: [mem 0x97fe05000-0x97fe05fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:c1e1:00:00.0
+pci_bus c1e1:00: busn_res: [bus 00-ff] end is updated to 00
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:c1e1:00
+pci c1e1:00:00.0: BAR 0: assigned [mem 0x97fe04000-0x97fe04fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:c1e1:00:00.0
+pci c1e1:00:00.0: BAR 2: assigned [mem 0x97fe05000-0x97fe05fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:c1e1:00:00.0
+virtiofs virtio3: virtio_fs_setup_dax: No cache capability
+ SUBSYSTEM=virtio
+ DEVICE=+virtio:virtio3
+hv_pci d781490f-41a1-4309-9254-5a4de44d6bca: PCI VMBus probing: Using version 0x10004
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:d781490f-41a1-4309-9254-5a4de44d6bca
+hv_pci d781490f-41a1-4309-9254-5a4de44d6bca: PCI host bridge to bus 41a1:00
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:d781490f-41a1-4309-9254-5a4de44d6bca
+pci_bus 41a1:00: root bus resource [mem 0x97fe06000-0x97fe07fff window]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:41a1:00
+pci_bus 41a1:00: No busn resource found for root bus, will use [bus 00-ff]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:41a1:00
+pci 41a1:00:00.0: [1af4:105a] type 00 class 0x088000
+ SUBSYSTEM=pci
+ DEVICE=+pci:41a1:00:00.0
+pci 41a1:00:00.0: reg 0x10: [mem 0x97fe06000-0x97fe06fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:41a1:00:00.0
+pci 41a1:00:00.0: reg 0x18: [mem 0x97fe07000-0x97fe07fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:41a1:00:00.0
+pci_bus 41a1:00: busn_res: [bus 00-ff] end is updated to 00
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:41a1:00
+pci 41a1:00:00.0: BAR 0: assigned [mem 0x97fe06000-0x97fe06fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:41a1:00:00.0
+pci 41a1:00:00.0: BAR 2: assigned [mem 0x97fe07000-0x97fe07fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:41a1:00:00.0
+[wsalog] disk sdd size=264052736 dev=8:48
+[wsalog] disk sdb size=63356928 dev=8:16
+[wsalog] disk sdc size=172888064 dev=8:32
+[wsalog] disk sda size=946970624 dev=8:0
+virtiofs virtio4: virtio_fs_setup_dax: No cache capability
+ SUBSYSTEM=virtio
+ DEVICE=+virtio:virtio4
+hv_pci 46668c78-ef1c-4680-9b1c-561443127f1c: PCI VMBus probing: Using version 0x10004
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:46668c78-ef1c-4680-9b1c-561443127f1c
+hv_pci 46668c78-ef1c-4680-9b1c-561443127f1c: PCI host bridge to bus ef1c:00
+ SUBSYSTEM=vmbus
+ DEVICE=+vmbus:46668c78-ef1c-4680-9b1c-561443127f1c
+pci_bus ef1c:00: root bus resource [mem 0x97fe08000-0x97fe09fff window]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:ef1c:00
+pci_bus ef1c:00: No busn resource found for root bus, will use [bus 00-ff]
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:ef1c:00
+pci ef1c:00:00.0: [1af4:105a] type 00 class 0x088000
+ SUBSYSTEM=pci
+ DEVICE=+pci:ef1c:00:00.0
+pci ef1c:00:00.0: reg 0x10: [mem 0x97fe08000-0x97fe08fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:ef1c:00:00.0
+pci ef1c:00:00.0: reg 0x18: [mem 0x97fe09000-0x97fe09fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:ef1c:00:00.0
+pci_bus ef1c:00: busn_res: [bus 00-ff] end is updated to 00
+ SUBSYSTEM=pci_bus
+ DEVICE=+pci_bus:ef1c:00
+pci ef1c:00:00.0: BAR 0: assigned [mem 0x97fe08000-0x97fe08fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:ef1c:00:00.0
+pci ef1c:00:00.0: BAR 2: assigned [mem 0x97fe09000-0x97fe09fff 64bit]
+ SUBSYSTEM=pci
+ DEVICE=+pci:ef1c:00:00.0
+virtiofs virtio5: virtio_fs_setup_dax: No cache capability
+ SUBSYSTEM=virtio
+ DEVICE=+virtio:virtio5
+EXT4-fs (sda): mounted filesystem without journal. Opts: . Quota mode: none.
+init: init first stage started!
+init: Unable to open /lib/modules, skipping module loading.
+init: [libfs_mgr]ReadFstabFromDt(): failed to read fstab from dt
+init: [libfs_mgr]Resolved SCSI address 0:0:0:1 to sdb
+init: [libfs_mgr]Resolved SCSI address 0:0:0:2 to sdc
+init: [libfs_mgr]Resolved SCSI address 0:0:0:3 to sdd
+init: [libfs_mgr]Resolved SCSI address 0:0:0:4 to sde
+init: [libfs_mgr]Resolved SCSI address 0:0:0:5 to sdf
+init: [libfs_mgr]Resolved SCSI address 0:0:0:1 to sdb
+init: [libfs_mgr]Resolved SCSI address 0:0:0:2 to sdc
+init: [libfs_mgr]Resolved SCSI address 0:0:0:3 to sdd
+init: [libfs_mgr]Resolved SCSI address 0:0:0:4 to sde
+init: [libfs_mgr]Resolved SCSI address 0:0:0:5 to sdf
+init: Using Android DT directory /proc/device-tree/firmware/android/
+init: Failed to read vbmeta partitions.
+init: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/sdf
+EXT4-fs (sdf): Ignoring removed nomblk_io_submit option
+EXT4-fs (sdf): mounted filesystem with ordered data mode. Opts: errors=remount-ro,nomblk_io_submit. Quota mode: none.
+init: [libfs_mgr]check_fs(): mount(/dev/block/sdf,/metadata,ext4)=0: Success
+init: [libfs_mgr]umount_retry(): unmount(/metadata) succeeded
+init: [libfs_mgr]Running /system/bin/e2fsck on /dev/block/sdf
+logwrapper: Cannot log to file /dev/fscklogs/log
+logwrapper: 
+logwrapper: executing /system/bin/e2fsck failed: No such file or directory
+logwrapper: 
+init (127) used greatest stack depth: 12288 bytes left
+e2fsck: executing /system/bin/e2fsck failed: No such file or directory
+e2fsck: e2fsck terminated by exit(255)\x0a
+init: [libfs_mgr]e2fsck returned status 0xff00
+EXT4-fs (sdf): mounted filesystem with ordered data mode. Opts: errors=panic. Quota mode: none.
+init: [libfs_mgr]__mount(source=/dev/block/sdf,target=/metadata,type=ext4)=0: Success
+init: Failed to copy /avb into /metadata/gsi/dsu/avb/: No such file or directory
+init: DSU not detected, proceeding with normal boot
+init: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/sdb
+EXT4-fs (sdb): mounted filesystem without journal. Opts: errors=panic. Quota mode: none.
+init: [libfs_mgr]__mount(source=/dev/block/sdb,target=/vendor,type=ext4)=0: Success
+init: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/sdc
+EXT4-fs (sdc): mounted filesystem without journal. Opts: errors=panic. Quota mode: none.
+init: [libfs_mgr]__mount(source=/dev/block/sdc,target=/system_ext,type=ext4)=0: Success
+init: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/sdd
+EXT4-fs (sdd): mounted filesystem without journal. Opts: errors=panic. Quota mode: none.
+init: [libfs_mgr]__mount(source=/dev/block/sdd,target=/product,type=ext4)=0: Success
+init: Skipped setting INIT_AVB_VERSION (not in recovery mode)
+init: [libfs_mgr]Resolved SCSI address 0:0:0:1 to sdb
+init: [libfs_mgr]Resolved SCSI address 0:0:0:2 to sdc
+init: [libfs_mgr]Resolved SCSI address 0:0:0:3 to sdd
+init: [libfs_mgr]Resolved SCSI address 0:0:0:4 to sde
+init: [libfs_mgr]Resolved SCSI address 0:0:0:5 to sdf
+init: Opening SELinux policy
+init: Falling back to standard signature check. TODO implementent support for fsverity SEPolicy.
+init: Error: Apex SEPolicy failed signature check
+init: Loading APEX Sepolicy from /system/etc/selinux/apex/SEPolicy.zip
+init: Failed to open package /system/etc/selinux/apex/SEPolicy.zip: No such file or directory
+init: Loading SELinux policy
+SELinux:  Permission bpf in class capability2 not defined in policy.
+SELinux:  Permission checkpoint_restore in class capability2 not defined in policy.
+SELinux:  Permission bpf in class cap2_userns not defined in policy.
+SELinux:  Permission checkpoint_restore in class cap2_userns not defined in policy.
+SELinux:  Class mctp_socket not defined in policy.
+SELinux: the above unknown classes and permissions will be denied
+SELinux:  policy capability network_peer_controls=1
+SELinux:  policy capability open_perms=1
+SELinux:  policy capability extended_socket_class=1
+SELinux:  policy capability always_check_network=0
+SELinux:  policy capability cgroup_seclabel=0
+SELinux:  policy capability nnp_nosuid_transition=1
+SELinux:  policy capability genfs_seclabel_symlinks=0
+SELinux:  policy capability ioctl_skip_cloexec=0
+audit: type=1400 audit(1.176:2): avc:  denied  { read } for  pid=112 comm="init" path="/.dbg/kmsg" dev="rootfs" ino=10 scontext=u:r:kernel:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+audit: type=1400 audit(1.176:3): avc:  denied  { write } for  pid=112 comm="init" path="/.dbg/sdf" dev="rootfs" ino=15 scontext=u:r:kernel:s0 tcontext=u:object_r:rootfs:s0 tclass=blk_file permissive=1
+[wsalog] disk sdd size=264052736 dev=8:48
+[wsalog] disk sdb size=63356928 dev=8:16
+[wsalog] disk sdc size=172888064 dev=8:32
+[wsalog] disk sda size=946970624 dev=8:0
+audit: type=1400 audit(1.180:4): avc:  denied  { read } for  pid=109 comm="init" name="size" dev="sysfs" ino=19644 scontext=u:r:kernel:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+audit: type=1400 audit(1.180:5): avc:  denied  { open } for  pid=109 comm="init" path="/.dbg/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/fd1d2cbd-ce7c-535c-966b-eb5f811c95f0/host0/target0:0:0/0:0:0:3/block/sdd/size" dev="sysfs" ino=19644 scontext=u:r:kernel:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+audit: type=1403 audit(1.204:6): auid=4294967295 ses=4294967295 lsm=selinux res=1
+selinux: SELinux: Loaded file_contexts
+selinux: 
+audit: type=1404 audit(1.208:7): enforcing=1 old_enforcing=0 auid=4294967295 ses=4294967295 enabled=1 old-enabled=1 lsm=selinux res=1
+init: init second stage started!
+audit: type=1400 audit(1.232:8): avc:  denied  { read } for  pid=112 comm="init" path="/.dbg/kmsg" dev="rootfs" ino=10 scontext=u:r:kernel:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+audit: type=1400 audit(1.232:9): avc:  denied  { write } for  pid=112 comm="init" path="/.dbg/sdf" dev="rootfs" ino=15 scontext=u:r:kernel:s0 tcontext=u:object_r:rootfs:s0 tclass=blk_file permissive=1
+init: Using Android DT directory /proc/device-tree/firmware/android/
+init: Couldn't load property file '/system_dlkm/etc/build.prop': open() failed: No such file or directory: No such file or directory
+init: Couldn't load property file '/vendor/default.prop': open() failed: No such file or directory: No such file or directory
+init: Overriding previous property 'ro.control_privapp_permissions':'disable' with new value 'enforce'
+init: Couldn't load property file '/odm_dlkm/etc/build.prop': open() failed: No such file or directory: No such file or directory
+init: Setting product property ro.product.brand to 'Windows' (from ro.product.product.brand)
+init: Setting product property ro.product.device to 'windows_arm64' (from ro.product.product.device)
+init: Setting product property ro.product.manufacturer to 'Microsoft Corporation' (from ro.product.product.manufacturer)
+init: Setting product property ro.product.model to 'Subsystem for Android(TM)' (from ro.product.product.model)
+init: Setting product property ro.product.name to 'windows_arm64' (from ro.product.product.name)
+init: Setting property 'ro.build.fingerprint' to 'Windows/windows_arm64/windows_arm64:13/TQ3A.230901.001/2407.40000.4.0:user/release-keys'
+init: Setting property 'ro.product.cpu.abilist' to 'arm64-v8a,armeabi-v7a,armeabi'
+init: Setting property 'ro.product.cpu.abilist32' to 'armeabi-v7a,armeabi'
+init: Setting property 'ro.product.cpu.abilist64' to 'arm64-v8a'
+selinux: SELinux: Loaded file_contexts
+selinux: 
+init: Running restorecon...
+selinux: SELinux: Could not get canonical path for /metadata/ota/rollback-indicator restorecon: No such file or directory.
+selinux: 
+selinux: SELinux:  Could not stat /metadata/gsi: No such file or directory.
+selinux: 
+init: Created socket '/dev/socket/property_service', mode 666, user 0, group 0
+init: SetupMountNamespaces done
+init: Forked subcontext for 'u:r:vendor_init:s0' with pid 4
+init: Parsing file /system/etc/init/hw/init.rc...
+init: Added '/init.environ.rc' to import list
+init: Added '/system/etc/init/hw/init.usb.rc' to import list
+init: Added '/init.windows_arm64.rc' to import list
+init: Added '/vendor/etc/init/hw/init.windows_arm64.rc' to import list
+init: Added '/system/etc/init/hw/init.usb.configfs.rc' to import list
+init: Added '/system/etc/init/hw/init.zygote64_32.rc' to import list
+init: Parsing file /init.environ.rc...
+init: Parsing file /system/etc/init/hw/init.usb.rc...
+init: Parsing file /init.windows_arm64.rc...
+init: Unable to read config file '/init.windows_arm64.rc': open() failed: No such file or directory
+init: Parsing file /vendor/etc/init/hw/init.windows_arm64.rc...
+init: Unable to read config file '/vendor/etc/init/hw/init.windows_arm64.rc': open() failed: No such file or directory
+init: Parsing file /system/etc/init/hw/init.usb.configfs.rc...
+init: Parsing file /system/etc/init/hw/init.zygote64_32.rc...
+init: Parsing directory /system/etc/init...
+init: Parsing file /system/etc/init/android.hidl.allocator@1.0-service.rc...
+init: Parsing file /system/etc/init/android.system.suspend@1.0-service.rc...
+init: Parsing file /system/etc/init/apexd.rc...
+init: Parsing file /system/etc/init/atrace.rc...
+init: Parsing file /system/etc/init/audioserver.rc...
+init: Parsing file /system/etc/init/blank_screen.rc...
+init: Parsing file /system/etc/init/bootanim.rc...
+init: Parsing file /system/etc/init/bootstat.rc...
+init: Parsing file /system/etc/init/bpfloader.rc...
+init: Parsing file /system/etc/init/cameraserver.rc...
+init: Parsing file /system/etc/init/credstore.rc...
+init: Parsing file /system/etc/init/dmesgd.rc...
+init: Parsing file /system/etc/init/drmserver.rc...
+init: Parsing file /system/etc/init/dumpstate.rc...
+init: Parsing file /system/etc/init/flags_health_check.rc...
+init: Parsing file /system/etc/init/gatekeeperd.rc...
+init: Parsing file /system/etc/init/gpuservice.rc...
+init: Parsing file /system/etc/init/gsid.rc...
+init: Parsing file /system/etc/init/heapprofd.rc...
+init: Parsing file /system/etc/init/hwservicemanager.rc...
+init: Parsing file /system/etc/init/idmap2d.rc...
+init: Parsing file /system/etc/init/incidentd.rc...
+init: Parsing file /system/etc/init/installd.rc...
+init: Parsing file /system/etc/init/keystore2.rc...
+init: Parsing file /system/etc/init/llkd.rc...
+init: Parsing file /system/etc/init/lmkd.rc...
+init: Parsing file /system/etc/init/logd.rc...
+init: Parsing file /system/etc/init/lpdumpd.rc...
+init: Parsing file /system/etc/init/mdnsd.rc...
+init: Parsing file /system/etc/init/mediaextractor.rc...
+init: Parsing file /system/etc/init/mediametrics.rc...
+init: Parsing file /system/etc/init/mediaserver.rc...
+init: Parsing file /system/etc/init/mtpd.rc...
+init: Parsing file /system/etc/init/netd.rc...
+init: Parsing file /system/etc/init/odsign.rc...
+init: Parsing file /system/etc/init/perfetto.rc...
+init: Parsing file /system/etc/init/prng_seeder.rc...
+init: Parsing file /system/etc/init/racoon.rc...
+init: Parsing file /system/etc/init/recovery-persist.rc...
+init: Parsing file /system/etc/init/rss_hwm_reset.rc...
+init: Parsing file /system/etc/init/servicemanager.rc...
+init: Parsing file /system/etc/init/simpleperf.rc...
+init: Parsing file /system/etc/init/snapuserd.rc...
+init: Parsing file /system/etc/init/storaged.rc...
+init: Parsing file /system/etc/init/surfaceflinger.rc...
+init: Parsing file /system/etc/init/tombstoned.rc...
+init: Parsing file /system/etc/init/traced_perf.rc...
+init: Parsing file /system/etc/init/uncrypt.rc...
+init: Parsing file /system/etc/init/usbd.rc...
+init: Parsing file /system/etc/init/vold.rc...
+init: Parsing file /system/etc/init/wifi.rc...
+init: Parsing file /system/etc/init/wificond.rc...
+init: Parsing directory /system_ext/etc/init...
+init: Parsing file /system_ext/etc/init/init.windows_arm64.rc...
+init: Parsing directory /vendor/etc/init...
+init: Parsing file /vendor/etc/init/android.hardware.audio.service.rc...
+init: Parsing file /vendor/etc/init/android.hardware.bluetooth@1.1-service.sim.rc...
+init: Parsing file /vendor/etc/init/android.hardware.camera-service.windows.rc...
+init: Parsing file /vendor/etc/init/android.hardware.cas@1.2-service.rc...
+init: Parsing file /vendor/etc/init/android.hardware.drm@1.4-service-lazy.clearkey.rc...
+init: Parsing file /vendor/etc/init/android.hardware.drm@1.4-service-lazy.widevine.rc...
+init: 'writepid /dev/cpuset/foreground/tasks' is converted into 'task_profiles ProcessCapacityHigh' for service vendor.drm-widevine-hal-1-4
+init: Parsing file /vendor/etc/init/android.hardware.gatekeeper@1.0-service.software.rc...
+init: Parsing file /vendor/etc/init/android.hardware.graphics.allocator@4.0-service.windows.rc...
+init: Parsing file /vendor/etc/init/android.hardware.health-service.windows.rc...
+init: Parsing file /vendor/etc/init/android.hardware.keymaster@4.1-service.rc...
+init: Parsing file /vendor/etc/init/android.hardware.media.omx@1.0-service.rc...
+init: Parsing file /vendor/etc/init/android.hardware.usb@1.0-service.rc...
+init: Parsing file /vendor/etc/init/boringssl_self_test.rc...
+init: Parsing file /vendor/etc/init/gnss-service.windows.rc...
+init: Parsing file /vendor/etc/init/hwcomposer-service.windows.rc...
+init: Parsing file /vendor/etc/init/init.windows_arm64.rc...
+init: Parsing file /vendor/etc/init/inputsvc.rc...
+init: Parsing file /vendor/etc/init/power-default.rc...
+init: Parsing file /vendor/etc/init/suspend_block.rc...
+init: Parsing file /vendor/etc/init/sysprep_service.rc...
+init: Parsing file /vendor/etc/init/windows.services.graphics@1.0-service.rc...
+init: Parsing file /vendor/etc/init/windows.services.rcm@1.0-service.rc...
+init: Parsing file /vendor/etc/init/windows.services.test.rcm@1.0-service.rc...
+init: Parsing file /odm/etc/init...
+init: Unable to read config file '/odm/etc/init': open() failed: No such file or directory
+init: Parsing directory /product/etc/init...
+init: Parsing file /product/etc/init/logcat_forwarder.rc...
+init: processing action (SetupCgroups) from (<Builtin Action>:0)
+cgroup: Unknown subsys name 'schedtune'
+libprocessgroup: Optional schedtune cgroup controller is not mounted
+init: Command 'SetupCgroups' action=SetupCgroups (<Builtin Action>:0) took 71ms and succeeded
+init: processing action (SetKptrRestrict) from (<Builtin Action>:0)
+init: processing action (TestPerfEventSelinux) from (<Builtin Action>:0)
+init: processing action (ConnectEarlyStageSnapuserd) from (<Builtin Action>:0)
+init: processing action (early-init) from (/system/etc/init/hw/init.rc:15)
+init: Command 'mkdir /acct/uid' action=early-init (/system/etc/init/hw/init.rc:30) took 0ms and failed: mkdir() failed on /acct/uid: Read-only file system
+init: starting service 'exec 1 (/system/bin/bootstrap/linkerconfig --target /linkerconfig/bootstrap)'...
+init: SVC_EXEC service 'exec 1 (/system/bin/bootstrap/linkerconfig --target /linkerconfig/bootstrap)' pid 5 (uid 0 gid 0+0 context default) started; waiting...
+linkerconfig: Unable to access VNDK APEX at path: /apex/com.android.vndk.v33: No such file or directory
+linkerconfig: Unable to access VNDK APEX at path: /apex/com.android.vndk.v33: No such file or directory
+linkerconfig (135) used greatest stack depth: 11280 bytes left
+init: Service 'exec 1 (/system/bin/bootstrap/linkerconfig --target /linkerconfig/bootstrap)' (pid 5) exited with status 0 waiting took 0.020000 seconds
+init: Sending signal 9 to service 'exec 1 (/system/bin/bootstrap/linkerconfig --target /linkerconfig/bootstrap)' (pid 5) process group...
+libprocessgroup: Successfully killed process cgroup uid 0 pid 5 in 0ms
+init: starting service 'ueventd'...
+init: starting service 'apexd-bootstrap'...
+init: SVC_EXEC service 'apexd-bootstrap' pid 7 (uid 0 gid 1000+0 context default) started; waiting...
+ueventd: ueventd started!
+selinux: SELinux: Loaded file_contexts
+selinux: 
+ueventd: Parsing file /system/etc/ueventd.rc...
+ueventd: Added '/vendor/etc/ueventd.rc' to import list
+ueventd: Added '/odm/etc/ueventd.rc' to import list
+ueventd: Parsing file /vendor/etc/ueventd.rc...
+ueventd: Unable to read config file '/vendor/etc/ueventd.rc': open() failed: No such file or directory
+ueventd: Parsing file /odm/etc/ueventd.rc...
+ueventd: Unable to read config file '/odm/etc/ueventd.rc': open() failed: No such file or directory
+ueventd: Parsing file /vendor/ueventd.rc...
+ueventd: Parsing file /odm/ueventd.rc...
+ueventd: Unable to read config file '/odm/ueventd.rc': open() failed: No such file or directory
+ueventd: Parsing file /ueventd.windows_arm64.rc...
+ueventd: Unable to read config file '/ueventd.windows_arm64.rc': open() failed: No such file or directory
+ueventd: [libfs_mgr]Resolved SCSI address 0:0:0:1 to sdb
+ueventd: [libfs_mgr]Resolved SCSI address 0:0:0:2 to sdc
+ueventd: [libfs_mgr]Resolved SCSI address 0:0:0:3 to sdd
+ueventd: [libfs_mgr]Resolved SCSI address 0:0:0:4 to sde
+audit: type=1400 audit(1.464:10): avc:  denied  { read } for  pid=112 comm="init" path="/.dbg/kmsg" dev="rootfs" ino=10 scontext=u:r:kernel:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+ueventd: [libfs_mgr]Resolved SCSI address 0:0:0:5 to sdf
+[wsalog] disk sdd size=264052736 dev=8:48
+[wsalog] disk sdb size=63356928 dev=8:16
+[wsalog] disk sdc size=172888064 dev=8:32
+[wsalog] disk sda size=946970624 dev=8:0
+apexd: Bootstrap subcommand detected
+cutils-trace: Error opening trace file: No such file or directory (2)
+ueventd: Coldboot took 0.031 seconds
+apexd: Pre-allocated 32 loopback devices
+apexd: Scanning /system/apex for pre-installed ApexFiles
+apexd: Found pre-installed APEX /system/apex/com.android.apex.cts.shim.apex
+apexd: Found pre-installed APEX /system/apex/com.android.ipsec.apex
+apexd: Found pre-installed APEX /system/apex/com.android.btservices.apex
+apexd: Found pre-installed APEX /system/apex/com.android.mediaprovider.apex
+apexd: Found pre-installed APEX /system/apex/com.android.ondevicepersonalization.apex
+apexd: Found pre-installed APEX /system/apex/com.android.os.statsd.apex
+apexd: Found pre-installed APEX /system/apex/com.android.adbd.apex
+apexd: Found pre-installed APEX /system/apex/com.android.permission.apex
+apexd: Found pre-installed APEX /system/apex/com.android.adservices.apex
+apexd: Found pre-installed APEX /system/apex/com.android.media.swcodec.apex
+apexd: Found pre-installed APEX /system/apex/com.android.extservices.apex
+apexd: Found pre-installed APEX /system/apex/com.android.tethering.apex
+apexd: Found pre-installed APEX /system/apex/com.android.vndk.current.apex
+apexd: Found pre-installed APEX /system/apex/com.android.uwb.apex
+apexd: Found pre-installed APEX /system/apex/com.android.tzdata.apex
+apexd: Found pre-installed APEX /system/apex/com.android.resolv.apex
+apexd: Found pre-installed APEX /system/apex/com.android.art.apex
+apexd: Found pre-installed APEX /system/apex/com.android.scheduling.apex
+apexd: Found pre-installed APEX /system/apex/com.android.runtime.apex
+apexd: Found pre-installed APEX /system/apex/com.android.conscrypt.apex
+apexd: Found pre-installed APEX /system/apex/com.android.neuralnetworks.apex
+apexd: Found pre-installed APEX /system/apex/com.android.media.apex
+apexd: Found pre-installed APEX /system/apex/com.android.appsearch.apex
+apexd: Found pre-installed APEX /system/apex/com.android.wifi.apex
+apexd: Found pre-installed APEX /system/apex/com.android.sdkext.apex
+apexd: Found pre-installed APEX /system/apex/com.android.i18n.apex
+apexd: Scanning /system_ext/apex for pre-installed ApexFiles
+apexd: /system_ext/apex does not exist. Skipping
+apexd: Scanning /product/apex for pre-installed ApexFiles
+apexd: Found pre-installed APEX /product/apex/prebuilt_mado_stub.apex
+apexd: Scanning /vendor/apex for pre-installed ApexFiles
+apexd: Found pre-installed APEX /vendor/apex/com.android.hardware.thermal.mock.apex
+apexd: No block apex metadata partition found, not adding block apexes
+apexd: Pre-allocated 0 loopback devices
+loop0: detected capacity change from 0 to 74600
+loop1: detected capacity change from 0 to 16200
+loop2: detected capacity change from 0 to 1728
+loop3: detected capacity change from 0 to 95352
+EXT4-fs (loop0): mounted filesystem without journal. Opts: (null). Quota mode: none.
+EXT4-fs (loop2): mounted filesystem without journal. Opts: (null). Quota mode: none.
+EXT4-fs (loop1): mounted filesystem without journal. Opts: (null). Quota mode: none.
+apexd: Successfully mounted package /system/apex/com.android.i18n.apex on /apex/com.android.i18n@1 duration=2
+apexd: Successfully mounted package /system/apex/com.android.tzdata.apex on /apex/com.android.tzdata@330400000 duration=3
+apexd: Successfully mounted package /system/apex/com.android.runtime.apex on /apex/com.android.runtime@1 duration=3
+EXT4-fs (loop3): mounted filesystem without journal. Opts: (null). Quota mode: none.
+apexd: Successfully mounted package /system/apex/com.android.vndk.current.apex on /apex/com.android.vndk.v33@1 duration=6
+apexd: Activated 4 packages.
+apexd: OnBootstrap done, duration=69
+apexd (138) used greatest stack depth: 11024 bytes left
+init: Service 'apexd-bootstrap' (pid 7) exited with status 0 waiting took 0.110000 seconds
+init: Sending signal 9 to service 'apexd-bootstrap' (pid 7) process group...
+libprocessgroup: Successfully killed process cgroup uid 0 pid 7 in 0ms
+init: linkerconfig generated /linkerconfig with mounted APEX modules info
+init: processing action (early-init) from (/init.environ.rc:2)
+init: processing action (early-init) from (/system/etc/init/prng_seeder.rc:5)
+init: starting service 'prng_seeder'...
+init: Created socket '/dev/socket/prng_seeder', mode 666, user 1092, group 1092
+init: processing action (ro.product.cpu.abilist32=* && early-init) from (/vendor/etc/init/boringssl_self_test.rc:2)
+init: starting service 'boringssl_self_test32_vendor'...
+init: SVC_EXEC service 'boringssl_self_test32_vendor' pid 25 (uid 0 gid 0+0 context default) started; waiting...
+init: cannot execv('/vendor/bin/boringssl_self_test32'). See the 'Debugging init' section of init's README.md for tips: Exec format error
+init: Service 'boringssl_self_test32_vendor' (pid 25) exited with status 127 waiting took 0.005000 seconds
+init: Sending signal 9 to service 'boringssl_self_test32_vendor' (pid 25) process group...
+libprocessgroup: Successfully killed process cgroup uid 0 pid 25 in 0ms
+init: Service with 'reboot_on_failure' option failed, shutting down system.
+init: Got shutdown_command 'reboot,boringssl-self-check-failed' Calling HandlePowerctlMessage()
+init: Clear action queue and start shutdown trigger
+init: Entering shutdown mode
+init: processing action (shutdown_done) from (<Builtin Action>:0)
+init: Reboot start, reason: reboot,boringssl-self-check-failed, reboot_target: boringssl-self-check-failed
+init: Shutdown timeout: 6000 ms
+init: Create reboot monitor thread.
+init: shutdown_timeout_timespec.tv_sec: 307
+init: Could not open '/metadata/bootstat/persist.sys.boot.reason' to persist reboot reason: No such file or directory
+init: Reboot ending, jumping to kernel
